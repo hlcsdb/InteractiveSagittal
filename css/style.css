@@ -7,6 +7,14 @@
 /*			url('CharisSIL-R.ttf') format('truetype');*/
 }
 
+h1 {
+	display: block;
+	font-family: 'Linux Biolinum', 'Linux Biolinum G', 'Linux Biolinum O', sans-serif;
+	text-align: center;
+	font-weight: normal;
+	margin: 0em;}
+	
+
 body {	/*background: #3a3a40; */
 		background: #FAF1CF;
 		color: black;
@@ -23,7 +31,6 @@ a:link {
 }
 
 a:active {color: #ffffff;
-
 	font-size: 1em;}
 
 a:visited {
@@ -38,21 +45,32 @@ a:hover {
 	text-decoration-thickness: 0.1rem;
 	}
 
-div.illustrations-and-info {
+div.illustrations-and-description {
 	display: flex;
+	flex: 1 1 100px;
+	flex-flow: row wrap-reverse;
 	border: thin solid greenyellow;
-	/* flex-direction: column; */
-	flex-wrap: wrap-reverse;
+	padding: 10%
 	/* padding: 4px */
 	}
 
-h1 {
+div.illustration-and-IPA {
+	display: flex;
+	padding: 10%;
+	flex-basis: auto;
+	border: thin solid red
+}
+
+div.beside-illustrations {
 	display: block;
-	font-family: 'Linux Biolinum', 'Linux Biolinum G', 'Linux Biolinum O', sans-serif;
-	text-align: center;
-	font-weight: normal;
-	margin: 0em;}
-	
+	float: right;
+	position: relative;
+	/*border: solid black;*/
+	padding: 10%;
+	/* min-width: 25%; */
+	/* max-width: 82%; */
+}
+
 p.description {	
 	display: block;
 	border: thin solid blueviolet;
@@ -188,19 +206,12 @@ table.scroll-table-small caption {
 	height: auto;
 }
 
-#beside-illustrations {
-	display: block;
-	/* float: left; */
-	/*border: solid black;*/
-	min-width: 25%;
-	max-width: 82%;
-}
 
 #Sammy {
 	white-space: nowrap;
 	background: #ffffff;
 	border: 4px solid #8a8a90;
-	/* padding: 1ex; */
+	padding: 1ex;
 	/* margin-right: 5%; */
 	text-align: left;
 	float: left;
@@ -219,7 +230,7 @@ img {
 #IPA {	
 	transform: translateX(+25%);
 		white-space: nowrap; 
-		font-size: 3vw;
+		font-size: 26pt;
 		
 		background: #ffffff;
 		border: 4px solid #8a8a90;
@@ -230,9 +241,9 @@ img {
 		display: block;
 		float: left;
 		/* min-width: 10%;
-		max-width: 50%;
+		/* max-width: 50%; */
 		height: auto;
-		padding: 1ex;
+		padding: 10%;
 		border-radius: 12pt;}	 */
 
 #controlpanel {	
