@@ -8,37 +8,36 @@
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body onload ="transcribe()">
+	
+	<h1>Interactive Sagittal Visualization</h1>
 
-<h1>Interactive Sagittal Visualization</h1>
-<div id="illustrations">
-	<div style="white-space: nowrap; background: #ffffff; border-collapse: collapse;" id="Sammy">
-	<img id="nasalcavity" alt="" src="images/top-oral.gif" width=100% height=27%>
-	<br>
-	<img id="lips" alt="" src="images/lips-rounded.gif" width=24.4% height=23%>
-	<img id="tongue" alt="" src="images/tongue-27.gif" width=54.2% height=23%>
-	<img id="velum" alt="" src="images/back-oral.gif" width=21.4% height="23%">
-	<br>
-	<img id="sagbottom" alt="" src="images/bottom-voiceless-glottal.gif" width=100% height=50%>
+	<div class="illustrations-and-info">
+		<div id="illustrations">
+			<div id="Sammy">
+			<img id="nasalcavity" alt="" src="images/top-oral.gif" width=100% height=27%>
+			<br>
+			<img id="lips" alt="" src="images/lips-rounded.gif" width=24.4% height=23%>
+			<img id="tongue" alt="" src="images/tongue-27.gif" width=54.2% height=23%>
+			<img id="velum" alt="" src="images/back-oral.gif" width=21.4% height="23%">
+			<br>
+			<img id="sagbottom" alt="" src="images/bottom-voiceless-glottal.gif" width=100% height=50%>
 
-	<p id="IPA" style="justify-content: center;"><span id="ipaconcat"></span></p>
-	<!-- <p id="more_info"><a class="popup-button" href="#sound_example" onclick="popMoreInfo();">More</a></p> -->
-
-<!-- 	<p id="credits"><a class="credits" href="#credits">credits</a>
- --></div>
-
-
+			<p id="IPA" style="justify-content: center;"><span id="ipaconcat"></span></p>
+			<!-- <p id="more_info"><a class="popup-button" href="#sound_example" onclick="popMoreInfo();">More</a></p> -->
+			<!-- 	<p id="credits"><a class="credits" href="#credits">credits</a>-->
+			</div>
+		</div>
 
 <div id="beside-illustrations">
 
-<div id="text">
-	<p class="description"> <br>This page lets you build sounds based on different sound features:</p>
-	<ul class="description">
-		<li>Place</li>
-		<li>Manner       <a class="popup-button" href="#tongue-tip">ℹ️</a></li>
-		<li>Glottalization       <a class="popup-button" href="#glottal-tip">ℹ️</a></li>
-		<li>Labialization       <a class="popup-button" href="#labial-tip">ℹ️</a></li> 
-	</ul>
-	<br>
+	<div id="text">
+		<p class="description">This page lets you build sounds based on different sound features:</p>
+		<ul class="description">
+			<li>Place</li>
+			<li>Manner       <a class="popup-button" href="#tongue-tip">ℹ️</a></li>
+			<li>Glottalization       <a class="popup-button" href="#glottal-tip">ℹ️</a></li>
+			<li>Labialization       <a class="popup-button" href="#labial-tip">ℹ️</a></li> 
+		</ul>
 	<!-- <table id="search" class="description">
 		<thead><tr><th colspan=2 width="50%">Choose the language you would like to work with:</th></tr></thead>
 		<tbody><tr>
@@ -46,15 +45,16 @@
 			<td width="50%"><INPUT id="PO" name="dialect" TYPE="radio" onclick="setDialect();">&nbsp;<label>hul’q’umi’num’</label></td>
 		</tr></tbody>
 	</table> -->
-	<p class="description">
-	Choose the language you would like to work with:
-		<span style="white-space:nowrap; display:inline-block"><INPUT id="DRH" class="description" name="dialect" TYPE="checkbox" checked=true onclick="equalizeLanguageButtons('DRH');">&nbsp;<label>hən̓q̓əmin̓əm̓</label></span>
-		<span style="white-space:nowrap; display:inline-block"><INPUT id="PO" class="description" name="dialect" TYPE="checkbox" onclick="equalizeLanguageButtons('PO');">&nbsp;<label>hul’q’umi’num’</label></span>
-	</p>
-	<p class="description">Select a set of features from the tables below to see what articulation it corresponds to and "Search" to see how it is spelled!
-	</p>
+		<p class="description">
+		Choose the language you would like to work with:
+			<span style="white-space:nowrap; display:inline-block"><INPUT id="DRH" class="description" name="dialect" TYPE="checkbox" checked=true onclick="equalizeLanguageButtons('DRH');">&nbsp;<label>hən̓q̓əmin̓əm̓</label></span>
+			<span style="white-space:nowrap; display:inline-block"><INPUT id="PO" class="description" name="dialect" TYPE="checkbox" onclick="equalizeLanguageButtons('PO');">&nbsp;<label>hul’q’umi’num’</label></span>
+		</p>
+		<p class="description">Select a set of features from the tables below to see what articulation it corresponds to and "Search" to see how it is spelled!
+		</p>
+	</div>
 </div>
-
+</div>
 <div id="controlpanel">
 <form name="samform">
 	<div class="tonguetable-container">
