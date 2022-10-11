@@ -1,0 +1,114 @@
+// "Sounds": [
+	{
+		"DRH": "p", "PO": "p", "lips": "closed", "manner": "stop", "place": "bilabial", "velum": "oral", "vocal folds": "voiceless", "epiglottis": "FALSE" , "soundfile": ""
+	},
+	{	
+		"DRH": "p’", "PO": "p’", "lips": "closed", "manner": "stop", "place": "bilabial", "velum": "oral", "vocal folds": "voiceless", "epiglottis": "TRUE" , "soundfile": ""
+	},
+	{
+		"DRH": "m", "PO": "m", "lips": "closed", "manner": "stop", "place": "bilabial", "velum": "nasal", "vocal folds": "voiced", "epiglottis": "FALSE" , "soundfile": ""
+	},
+	{
+		"DRH": "m’", "PO": "m’", "lips": "closed", "manner": "stop", "place": "bilabial", "velum": "nasal", "vocal folds": "voiced", "epiglottis": "TRUE" , "soundfile": ""
+	},
+	{
+		"DRH": "t̓ᶿ", "PO": "tth", "lips": "spread", "manner": "affricate", "place": "", "velum": "oral", "vocal folds": "voiceless", "epiglottis": "TRUE" , "soundfile": ""
+	},
+	{
+		"DRH": "θ", "PO": "th", "lips": "spread", "manner": "fricative", "place": "dental", "velum": "oral", "vocal folds": "voiceless", "epiglottis": "FALSE" , "soundfile": ""
+	},
+	{
+		"DRH": "t", "PO": "t", "lips": "spread", "manner": "stop", "place": "alveolar", "velum": "oral", "vocal folds": "voiceless", "epiglottis": "FALSE" , "soundfile": ""
+	},
+	{
+		"DRH": "t̓", "PO": "t’", "lips": "spread", "manner": "stop", "place": "alveolar", "velum": "oral", "vocal folds": "voiceless", "epiglottis": "TRUE" , "soundfile": ""
+	},
+	{
+		"DRH": "c", "PO": "ts", "lips": "spread", "manner": "affricate", "place": "alveolar", "velum": "oral", "vocal folds": "voiceless", "epiglottis": "FALSE" , "soundfile": ""
+	},
+	{
+		"DRH": "c̓", "PO": "ts’", "lips": "spread", "manner": "affricate", "place": "alveolar", "velum": "oral", "vocal folds": "voiceless", "epiglottis": "TRUE" , "soundfile": ""
+	},
+	{	
+		"DRH": "s", "PO": "s", "lips": "spread", "manner": "fricative", "place": "alveolar", "velum": "oral", "vocal folds": "voiceless", "epiglottis": "FALSE" , "soundfile": ""
+	},
+	{
+		"DRH": "n", "PO": "n", "lips": "spread", "manner": "resonant", "place": "alveolar", "velum": "nasal", "vocal folds": "voiced", "epiglottis": "FALSE" , "soundfile": ""
+	},
+	{
+		"DRH": "n̓", "PO": "n’", "lips": "spread", "manner": "resonant", "place": "alveolar", "velum": "nasal", "vocal folds": "voiced", "epiglottis": "TRUE" , "soundfile": ""
+	},
+	{
+		"DRH": "", "PO": "tl", "lips": "spread", "manner": "affricate", "place": "", "velum": "oral", "vocal folds": "voiceless", "epiglottis": "FALSE" , "soundfile": ""
+	},
+	{
+		"DRH": "ƛ̓", "PO": "tl’", "lips": "spread", "manner": "affricate", "place": "", "velum": "oral", "vocal folds": "voiceless", "epiglottis": "TRUE" , "soundfile": ""
+	},
+	{
+		"DRH": "ł", "PO": "lh", "lips": "spread", "manner": "resonant", "place": "", "velum": "oral", "vocal folds": "voiced", "epiglottis": "FALSE" , "soundfile": ""
+	},
+	{
+		"DRH": "l", "PO": "l", "lips": "spread", "manner": "resonant", "place": "", "velum": "oral", "vocal folds": "voiced", "epiglottis": "FALSE" , "soundfile": ""
+	},
+	{
+		"DRH": "l̓", "PO": "l’", "lips": "spread", "manner": "resonant", "place": "", "velum": "oral", "vocal folds": "voiced", "epiglottis": "TRUE" , "soundfile": ""
+	},
+	{
+		"DRH": "č", "PO": "tsh", "lips": "spread", "manner": "affricate", "place": "", "velum": "oral", "vocal folds": "voiceless", "epiglottis": "FALSE" , "soundfile": ""
+	},
+	{
+		"DRH": "š", "PO": "sh", "lips": "spread", "manner": "fricative", "place": "postalveolar", "velum": "oral", "vocal folds": "voiceless", "epiglottis": "FALSE" , "soundfile": ""
+	},
+	{
+		"DRH": "y", "PO": "y", "lips": "spread", "manner": "resonant", "place": "palatal", "velum": "oral", "vocal folds": "voiced", "epiglottis": "FALSE" , "soundfile": ""
+	},
+	{
+		"DRH": "y̓", "PO": "y’", "lips": "spread", "manner": "resonant", "place": "palatal", "velum": "oral", "vocal folds": "voiced", "epiglottis": "TRUE" , "soundfile": ""
+	},
+	{
+		"DRH": "k", "PO": "k", "lips": "spread", "manner": "stop", "place": "velar", "velum": "oral", "vocal folds": "voiceless", "epiglottis": "FALSE" , "soundfile": ""
+	},
+	{
+		"DRH": "x", "PO": "x", "lips": "spread", "manner": "fricative", "place": "velar", "velum": "oral", "vocal folds": "voiceless", "epiglottis": "FALSE" , "soundfile": ""
+	},
+	{
+		"DRH": "kʷ", "PO": "kw", "lips": "rounded", "manner": "stop", "place": "velar", "velum": "oral", "vocal folds": "voiceless", "epiglottis": "FALSE" , "soundfile": ""
+	},
+	{
+		"DRH": "k̓ʷ", "PO": "kw’", "lips": "rounded", "manner": "stop", "place": "velar", "velum": "oral", "vocal folds": "voiceless", "epiglottis": "TRUE" , "soundfile": ""
+	},
+	{
+		"DRH": "xʷ", "PO": "hw", "lips": "rounded", "manner": "fricative", "place": "velar", "velum": "oral", "vocal folds": "voiceless", "epiglottis": "FALSE" , "soundfile": ""
+	},
+	{
+		"DRH": "w", "PO": "w", "lips": "rounded", "manner": "resonant", "place": "velar", "velum": "oral", "vocal folds": "voiced", "epiglottis": "FALSE" , "soundfile": ""
+	},
+	{
+		"DRH": "w̓", "PO": "w’", "lips": "rounded", "manner": "resonant", "place": "velar", "velum": "oral", "vocal folds": "voiced", "epiglottis": "TRUE" , "soundfile": ""
+	},
+	{
+		"DRH": "q", "PO": "q", "lips": "spread", "manner": "stop", "place": "uvular", "velum": "oral", "vocal folds": "voiceless", "epiglottis": "FALSE" , "soundfile": ""
+	},
+	{
+		"DRH": "q̓", "PO": "q’", "lips": "spread", "manner": "stop", "place": "uvular", "velum": "oral", "vocal folds": "voiceless", "epiglottis": "TRUE" , "soundfile": ""
+	},
+	{
+		"DRH": "x̌", "PO": "x", "lips": "spread", "manner": "fricative", "place": "uvular", "velum": "oral", "vocal folds": "voiceless", "epiglottis": "FALSE" , "soundfile": ""
+	},
+	{
+		"DRH": "qʷ", "PO": "qw", "lips": "rounded", "manner": "stop", "place": "uvular", "velum": "oral", "vocal folds": "voiceless", "epiglottis": "FALSE" , "soundfile": ""
+	},
+	{
+		"DRH": "q̓ʷ", "PO": "qw’", "lips": "rounded", "manner": "stop", "place": "uvular", "velum": "oral", "vocal folds": "voiceless", "epiglottis": "TRUE" , "soundfile": ""
+	},
+	{
+		"DRH": "x̌ʷ", "PO": "xw", "lips": "rounded", "manner": "fricative", "place": "uvular", "velum": "oral", "vocal folds": "voiced", "epiglottis": "TRUE" , "soundfile": ""
+	},
+	{
+		"DRH": "ʔ", "PO": "’", "lips": "spread", "manner": "stop", "place": "glottal", "velum": "oral", "vocal folds": "voiced", "epiglottis": "FALSE" , "soundfile": ""
+	},
+	{
+		"DRH": "h", "PO": "h", "lips": "spread", "manner": "fricative", "place": "glottal", "velum": "oral", "vocal folds": "voiceless", "epiglottis": "FALSE" , "soundfile": ""
+	}
+// ]
+// }

@@ -1,0 +1,173 @@
+<!DOCTYPE HTML>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equix="X-UA-Compatible" content="ie=edge">
+	<title>Interactive Sagittal Visualization</title>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body onload ="transcribe()">
+
+<h1>Interactive Sagittal Visualization</h1>
+<div id="illustrations">
+	<div style="white-space: nowrap; background=#ffffff; border-collapse: collapse;" id="Sammy">
+		<img id="nasalcavity" alt="" src="images/top-oral.gif" width=100% height=27%>
+		<br>
+		<img id="lips" alt="" src="images/lips-rounded.gif" width=24.4% height=23%>
+		<img id="tongue" alt="" src="images/tongue-27.gif" width=54.2% height=23%>
+		<img id="velum" alt="" src="images/back-oral.gif" width=21.4% height="23%">
+		<br>
+		<img id="sagbottom" alt="" src="images/bottom-voiceless-glottal.gif" width=100% height=50%>
+	</div>
+	<br>
+
+	<p id="IPA" style="justify-content: center;"><span id="ipaconcat"></span></p>
+</div>
+
+
+
+<div id="beside-illustrations">
+
+<div id="text">
+	<p class="description"> <br>This page lets you build sounds based on different sound features.</p>
+	<p class="description">Select a set of features from the tables below to see what articulation it corresponds to and "Search" to see how it is spelled!
+	</p>
+	<p class="description">
+	Choose the language you would like to work with:
+		<span style="white-space:nowrap; display:inline-block"><INPUT id="DRH" class="description" name="dialect" TYPE="checkbox" checked=true onclick="equalizeLanguageButtons('DRH');">&nbsp;<label>hən̓q̓əmin̓əm̓</label></span>
+		<span style="white-space:nowrap; display:inline-block"><INPUT id="PO" class="description" name="dialect" TYPE="checkbox" onclick="equalizeLanguageButtons('PO');">&nbsp;<label>hul’q’umi’num’</label></span>
+	</p>
+</div>
+
+<div id="controlpanel">
+<form name="samform">
+	<!-- <div class="tonguetable-container"> -->
+	<table id="tonguetable" class="scroll-table-big">
+		<thead><tr><th>Tongue</th></tr></thead>
+		<tbody><tr><td>
+			<table class="inner">
+			<!-- <thead><tr><td></td><th><a class="popup-button" onclick="showFeatureExplanation('stop');">Bilabial</a></th><th>Dental</th><th>Alveolar</th><th>Lateral</th><th>Palatal</th><th>Velar</th><th>Uvular</th><th>Glottal</th></tr></thead> -->
+			<thead><tr><td></td><th>Bilabial</th><th>Dental</th><th>Alveolar</th><th>Lateral</th><th>Palatal</th><th>Velar</th><th>Uvular</th><th>Glottal</th></tr></thead>
+			<tbody>
+			<tr><th>Stop</th>		
+				<td><input type="radio" class="stop" name="lingual" id="bs" value="00" onclick="doTongue();"></td> <!-- bilabial -->
+				<td><input type="radio" class="stop" name="lingual" id="ds" value="21" onclick="doTongue();"></td> <!-- dental -->
+				<td><input type="radio" class="stop" name="lingual" id="as" value="22" onclick="doTongue();"></td> <!-- alveolar -->
+				<td><input type="radio" class="stop" name="lingual" id="pas" value="24" onclick="doTongue();"></td> <!-- lateral -->
+				<td><input type="radio" class="stop" name="lingual" id="ps" value="25" onclick="doTongue();"></td> <!-- palatal -->
+				<td><input type="radio" class="stop" name="lingual" id="vs" value="26" onclick="doTongue();"></td> <!-- velar -->
+				<td><input type="radio" class="stop" name="lingual" id="us" value="27" onclick="doTongue();" checked=true></td> <!-- uvular -->
+				<td><input type="radio" class="stop" name="lingual" id="gs" value="27" onclick="doTongue();"></td></tr> <!-- glottal -->
+
+			<tr><th>Fricative</th>	<td><input type="radio" class="fricative" name="lingual" id="bf" value="00" onclick="doTongue();"></td> <!-- bilabial -->
+				<td><input type="radio" class="fricative" name="lingual" id="df" value="11" onclick="doTongue();"></td> <!-- dental -->
+				<td><input type="radio" class="fricative" name="lingual" id="af" value="12" onclick="doTongue();"></td> <!-- alveolar -->
+				<td><input type="radio" class="fricative" name="lingual" id="paf" value="14" onclick="doTongue();"></td> <!-- lateral -->
+				<td><input type="radio" class="fricative" name="lingual" id="pf" value="15" onclick="doTongue();"></td> <!-- palatal -->
+				<td><input type="radio" class="fricative" name="lingual" id="vf" value="16" onclick="doTongue();"></td> <!-- velar -->
+				<td><input type="radio" class="fricative" name="lingual" id="uf" value="17" onclick="doTongue();"></td> <!-- uvular -->
+				<td><input type="radio" class="fricative" name="lingual" id="gf" value="17" onclick="doTongue();"></td></tr> <!-- glottal -->
+
+			<tr><th>Resonants</th>		
+				<td><input type="radio" class="resonant" name="lingual" id="bres" value="00" onclick="doTongue();"></td> <!-- bilabial -->
+				<td><input type="radio" class="resonant" name="lingual" id="dres" value="21" onclick="doTongue();"></td> <!-- dental -->
+				<td><input type="radio" class="resonant" name="lingual" id="ares" value="22" onclick="doTongue();"></td> <!-- alveolar -->
+				<td><input type="radio" class="resonant" name="lingual" id="pasres" value="24" onclick="doTongue();"></td> <!-- lateral -->
+				<td><input type="radio" class="resonant" name="lingual" id="psres" value="25" onclick="doTongue();"></td> <!-- palatal -->
+				<td><input type="radio" class="resonant" name="lingual" id="vsres" value="26" onclick="doTongue();"></td> <!-- velar -->
+				<td><input type="radio" class="resonant" name="lingual" id="usres" value="27" onclick="doTongue();"></td> <!-- uvular -->
+				<td><input type="radio" class="resonant" name="lingual" id="gsres" value="27" onclick="doTongue();"></td></tr> <!-- glottal -->
+			
+			<tr><th>Affricate</th>	
+				<td><input type="radio" class="affricate" name="lingual" id="ba" value="00" onclick="doTongue();"></td> <!-- bilabial -->
+				<td><input type="radio" class="affricate" name="lingual" id="da" value="11" onclick="doTongue();"></td> <!-- dental -->
+				<td><input type="radio" class="affricate" name="lingual" id="aa" value="12" onclick="doTongue();"></td> <!-- alveolar -->
+				<td><input type="radio" class="affricate" name="lingual" id="paa" value="13" onclick="doTongue();"></td> <!-- postalveolar -->
+				<td><input type="radio" class="affricate" name="lingual" id="pa" value="15" onclick="doTongue();"></td> <!-- palatal -->
+				<td><input type="radio" class="affricate" name="lingual" id="va" value="16" onclick="doTongue();"></td> <!-- velar -->
+				<td><input type="radio" class="affricate" name="lingual" id="ua" value="17" onclick="doTongue();"></td> <!-- uvular -->	
+				<td><input type="radio" class="affricate" name="lingual" id="ga" value="17" onclick="doTongue();"></td></tr> <!-- glottal -->				
+			
+				<!-- separate manner -->		
+				</tbody>
+			</table>
+		</td></tr></tbody>
+	</table>
+	<!-- </div> -->
+
+	<!-- <table class="stealth"><tbody><tr><td> -->
+	<table id="epiglottistable" class="scroll-table-small">
+		<thead><tr><th>Glottis</th></tr></thead>
+		<tbody>
+			<tr>
+				<td><INPUT TYPE="radio" NAME="glottalization" VALUE="not-glottalized" id="not-glottalized" onclick="doVocalFolds()">&nbsp;<label for="oral">Not glottalized</label></td>
+			</tr><tr>
+				<td><INPUT TYPE="radio" checked=true NAME="glottalization" VALUE="glottalized" id="glottalized" onclick="doVocalFolds()">&nbsp;<label for="glottalized">Glottalized</label></td>
+			</tr>
+		</tbody>
+	</table>
+	<table id="labializationtable" class="scroll-table-small">
+		<thead><tr><th>Lips</th></tr></thead>
+		<tbody>
+			<tr>
+				<td><INPUT TYPE="radio" NAME="labialization" VALUE="not-labialized" id="not-labialized" onclick="doLips();">&nbsp;<label for="not-labialized">Not labialized<label for="spread"></td>
+				</tr><tr>
+				<td><INPUT TYPE="radio" checked=true NAME="labialization" VALUE="labialized" id="labialized" onclick="doLips();">&nbsp;<label for="labialized">Labialized<label for="spread"></td>
+			</tr>
+		</tbody>
+	</table><br>
+	<!-- </td></tr></tbody></table> -->
+</form><br><br>
+</div>
+
+<div id="search">
+	<button id="search-button" onclick="transcribe()">Search</button>
+	<span id="hint">description of symbol or non-symbol will go here</span><a class="popup-button" href="#sound_example" onclick="popMoreInfo();"><span id="exampleLink"></span></a><br>
+	<p style="font-size: large"><a class="popup-button" href="#credits">Credits</a></p>
+</div>
+
+
+<!--POPUPS-->
+<div id="featureInfo" class="overlay">
+	<div class="popup">
+		<h2><span id="featureName"></span></h2>
+		<a class="close" href="#">&times;</a>
+		<div class="content">
+			<p><span id="featureInfoText"></span></p>
+		</div>
+	</div>
+</div>
+
+<div id="credits" class="overlay">
+	<div class="popup">
+		<h2>About</h2>
+		<a class="close" href="#">&times;</a>
+		<div class="content">
+			<p>This tool was inspired by <a href="http://smu-facweb.smu.ca/~s0949176/sammy/" target="_blank">the Interactive Sagittal Section</a> by Daniel Currie Hall. The division of linguistic features adheres to features in hul’q’umi’num’ and hən̓q̓əmin̓əm̓, as laid out on <a href="https://xwulmuxw.ca/learn/sounds/consonants/" target="_blank">xwulmuhw</a>.<br><br>The mid-sagittal image is a partial replication of that used by Currie Hall [The general structure of this sagittal section is based on diagrams in <a href="http://www.worldcat.org/title/sounds-of-language-an-introduction-to-phonetics/oclc/43060672/editions?editionsView=true" target="_blank"></a>The sounds of language: An introduction to phonetics, by Henry Rogers</a>].<br>Illustrations for voicing, glottalization, and some manners were designed by Sonya Bird and Chloë Farr.<br>Orthography follows that used by the hul’q’umi’num’ Language and Culture Society.<br><br></p><p style="font-weight: bold; font-size:1.5em; font-family:'Linux Biolinum', 'Linux Biolinum G', 'Linux Biolinum O', sans-serif">Credits</p>
+				<ul>
+					<li>Web developer: Chloë Farr</li>
+					<li>:Janet Leonard</li>
+					<li>:Sonya Bird</li>
+				</ul>
+		</div>
+	</div>
+</div>
+
+<div id="sound_example" class="overlay">
+	<div class="popup">
+		<h2>More Information</h2>
+		<a class="close" href="#">&times;</a>
+		<div class="content">
+			<p style="font-weight: bold;font-size: xx-large;text-align: center;"><span id="moreInfo_symbol"></span><br></p>
+			<p><span id="how_say"></span></p>
+
+			<p>An word that has <span id="symbol2"></span> is:<br><span id="word"></span>, meaning <span id="translation"></span>.</p>
+			<button id="audio-button" class="audio-button" onclick="playWordAudio()">Play</button>
+		</div>
+	</div>
+</div>
+
+<script src="js/doSagittalB.js"></script>
+<!-- <script type="module" src="https://server.com/sounds.js"></script> -->
+</body>
