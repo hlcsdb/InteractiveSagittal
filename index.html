@@ -47,10 +47,11 @@
 		<thead><tr><th>Tongue</th></tr></thead>
 		<tbody><tr><td>
 			<table class="inner">
-			<!-- <thead><tr><td></td><th><a class="popup-button" onclick="showFeatureExplanation('stop');">Bilabial</a></th><th>Dental</th><th>Alveolar</th><th>Lateral</th><th>Palatal</th><th>Velar</th><th>Uvular</th><th>Glottal</th></tr></thead> -->
-			<thead><tr><td></td><th>Bilabial</th><th>Dental</th><th>Alveolar</th><th>Lateral</th><th>Palatal</th><th>Velar</th><th>Uvular</th><th>Glottal</th></tr></thead>
+			<thead><tr><td></td><th><a class="popup-button" onclick="showFeatureExplanation('bilabial');">Bilabial</a></th><th><a class="popup-button" onclick="showFeatureExplanation('dental');">Dental</a></th><th><a class="popup-button" onclick="showFeatureExplanation('alveolar');">Alveolar</a></th><th><a class="popup-button" onclick="showFeatureExplanation('lateral');">Lateral</a></th><th><a class="popup-button" onclick="showFeatureExplanation('palatal');">Palatal</a></th><th><a class="popup-button" onclick="showFeatureExplanation('velar');">Velar</a></th><th><a class="popup-button" onclick="showFeatureExplanation('uvular');">Uvular</a></th><th><a class="popup-button" onclick="showFeatureExplanation('glottal');">Glottal</a></th></tr></thead>
+			<!-- <thead><tr><td></td><th>Bilabial</th><th>Dental</th><th>Alveolar</th><th>Lateral</th><th>Palatal</th><th>Velar</th><th>Uvular</th><th>Glottal</th></tr></thead> -->
 			<tbody>
-			<tr><th>Stop</th>		
+			<!-- <tr><th><a class="popup-button" id="StopLink" onclick="showFeatureExplanation('Stop');">Stop</a></th>	 -->	
+				<tr><th><a class="popup-button" onclick="showFeatureExplanation('stop');">Stop</a></th>	
 				<td><input type="radio" class="stop" name="lingual" id="bs" value="00" onclick="doTongue();"></td> <!-- bilabial -->
 				<td><input type="radio" class="stop" name="lingual" id="ds" value="21" onclick="doTongue();"></td> <!-- dental -->
 				<td><input type="radio" class="stop" name="lingual" id="as" value="22" onclick="doTongue();"></td> <!-- alveolar -->
@@ -60,7 +61,7 @@
 				<td><input type="radio" class="stop" name="lingual" id="us" value="27" onclick="doTongue();" checked=true></td> <!-- uvular -->
 				<td><input type="radio" class="stop" name="lingual" id="gs" value="27" onclick="doTongue();"></td></tr> <!-- glottal -->
 
-			<tr><th>Fricative</th>	<td><input type="radio" class="fricative" name="lingual" id="bf" value="00" onclick="doTongue();"></td> <!-- bilabial -->
+			<tr><th><a class="popup-button" onclick="showFeatureExplanation('fricative');">Fricative</a></th><td><input type="radio" class="fricative" name="lingual" id="bf" value="00" onclick="doTongue();"></td> <!-- bilabial -->
 				<td><input type="radio" class="fricative" name="lingual" id="df" value="11" onclick="doTongue();"></td> <!-- dental -->
 				<td><input type="radio" class="fricative" name="lingual" id="af" value="12" onclick="doTongue();"></td> <!-- alveolar -->
 				<td><input type="radio" class="fricative" name="lingual" id="paf" value="14" onclick="doTongue();"></td> <!-- lateral -->
@@ -69,7 +70,7 @@
 				<td><input type="radio" class="fricative" name="lingual" id="uf" value="17" onclick="doTongue();"></td> <!-- uvular -->
 				<td><input type="radio" class="fricative" name="lingual" id="gf" value="17" onclick="doTongue();"></td></tr> <!-- glottal -->
 
-			<tr><th>Resonants</th>		
+			<tr><th><a class="popup-button" onclick="showFeatureExplanation('resonant');">Resonants</a></th>		
 				<td><input type="radio" class="resonant" name="lingual" id="bres" value="00" onclick="doTongue();"></td> <!-- bilabial -->
 				<td><input type="radio" class="resonant" name="lingual" id="dres" value="21" onclick="doTongue();"></td> <!-- dental -->
 				<td><input type="radio" class="resonant" name="lingual" id="ares" value="22" onclick="doTongue();"></td> <!-- alveolar -->
@@ -79,7 +80,7 @@
 				<td><input type="radio" class="resonant" name="lingual" id="usres" value="27" onclick="doTongue();"></td> <!-- uvular -->
 				<td><input type="radio" class="resonant" name="lingual" id="gsres" value="27" onclick="doTongue();"></td></tr> <!-- glottal -->
 			
-			<tr><th>Affricate</th>	
+			<tr><th><a class="popup-button" onclick="showFeatureExplanation('affricate');">Affricate</a></th>	
 				<td><input type="radio" class="affricate" name="lingual" id="ba" value="00" onclick="doTongue();"></td> <!-- bilabial -->
 				<td><input type="radio" class="affricate" name="lingual" id="da" value="11" onclick="doTongue();"></td> <!-- dental -->
 				<td><input type="radio" class="affricate" name="lingual" id="aa" value="12" onclick="doTongue();"></td> <!-- alveolar -->
@@ -98,7 +99,7 @@
 
 	<!-- <table class="stealth"><tbody><tr><td> -->
 	<table id="epiglottistable" class="scroll-table-small">
-		<thead><tr><th>Glottis</th></tr></thead>
+		<thead><tr><th><a class="popup-button" onclick="showFeatureExplanation('glottalized');">Glottis</a></th></tr></thead>
 		<tbody>
 			<tr>
 				<td><INPUT TYPE="radio" NAME="glottalization" VALUE="not-glottalized" id="not-glottalized" onclick="doVocalFolds()">&nbsp;<label for="oral">Not glottalized</label></td>
@@ -108,7 +109,7 @@
 		</tbody>
 	</table>
 	<table id="labializationtable" class="scroll-table-small">
-		<thead><tr><th>Lips</th></tr></thead>
+		<thead><tr><th><a class="popup-button" onclick="showFeatureExplanation('lablialized');">Lips</a></th></tr></thead>
 		<tbody>
 			<tr>
 				<td><INPUT TYPE="radio" NAME="labialization" VALUE="not-labialized" id="not-labialized" onclick="doLips();">&nbsp;<label for="not-labialized">Not labialized<label for="spread"></td>
