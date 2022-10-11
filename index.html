@@ -11,43 +11,55 @@
 
 <h1>Interactive Sagittal Visualization</h1>
 <div id="illustrations">
-	<div style="white-space: nowrap; background=#ffffff; border-collapse: collapse;" id="Sammy">
-		<img id="nasalcavity" alt="" src="images/top-oral.gif" width=100% height=27%>
-		<br>
-		<img id="lips" alt="" src="images/lips-rounded.gif" width=24.4% height=23%>
-		<img id="tongue" alt="" src="images/tongue-27.gif" width=54.2% height=23%>
-		<img id="velum" alt="" src="images/back-oral.gif" width=21.4% height="23%">
-		<br>
-		<img id="sagbottom" alt="" src="images/bottom-voiceless-glottal.gif" width=100% height=50%>
-	</div>
+	<div style="white-space: nowrap; background: #ffffff; border-collapse: collapse;" id="Sammy">
+	<img id="nasalcavity" alt="" src="images/top-oral.gif" width=100% height=27%>
 	<br>
+	<img id="lips" alt="" src="images/lips-rounded.gif" width=24.4% height=23%>
+	<img id="tongue" alt="" src="images/tongue-27.gif" width=54.2% height=23%>
+	<img id="velum" alt="" src="images/back-oral.gif" width=21.4% height="23%">
+	<br>
+	<img id="sagbottom" alt="" src="images/bottom-voiceless-glottal.gif" width=100% height=50%>
 
 	<p id="IPA" style="justify-content: center;"><span id="ipaconcat"></span></p>
-</div>
+	<!-- <p id="more_info"><a class="popup-button" href="#sound_example" onclick="popMoreInfo();">More</a></p> -->
+
+<!-- 	<p id="credits"><a class="credits" href="#credits">credits</a>
+ --></div>
 
 
 
 <div id="beside-illustrations">
 
 <div id="text">
-	<p class="description"> <br>This page lets you build sounds based on different sound features.</p>
-	<p class="description">Select a set of features from the tables below to see what articulation it corresponds to and "Search" to see how it is spelled!
-	</p>
+	<p class="description"> <br>This page lets you build sounds based on different sound features:</p>
+	<ul class="description">
+		<li>Place</li>
+		<li>Manner       <a class="popup-button" href="#tongue-tip">ℹ️</a></li>
+		<li>Glottalization       <a class="popup-button" href="#glottal-tip">ℹ️</a></li>
+		<li>Labialization       <a class="popup-button" href="#labial-tip">ℹ️</a></li> 
+	</ul>
+	<br>
+	<!-- <table id="search" class="description">
+		<thead><tr><th colspan=2 width="50%">Choose the language you would like to work with:</th></tr></thead>
+		<tbody><tr>
+			<td width="50%"><INPUT id="DRH" name="dialect" TYPE="radio"  checked=true onclick="setDialect();">&nbsp;<label>hən̓q̓əmin̓əm̓</label></td>
+			<td width="50%"><INPUT id="PO" name="dialect" TYPE="radio" onclick="setDialect();">&nbsp;<label>hul’q’umi’num’</label></td>
+		</tr></tbody>
+	</table> -->
 	<p class="description">
 	Choose the language you would like to work with:
 		<span style="white-space:nowrap; display:inline-block"><INPUT id="DRH" class="description" name="dialect" TYPE="checkbox" checked=true onclick="equalizeLanguageButtons('DRH');">&nbsp;<label>hən̓q̓əmin̓əm̓</label></span>
 		<span style="white-space:nowrap; display:inline-block"><INPUT id="PO" class="description" name="dialect" TYPE="checkbox" onclick="equalizeLanguageButtons('PO');">&nbsp;<label>hul’q’umi’num’</label></span>
 	</p>
+	<p class="description">Select a set of features from the tables below to see what articulation it corresponds to and "Search" to see how it is spelled!
+	</p>
 </div>
 
 <div id="controlpanel">
 <form name="samform">
-	<!-- <div class="tonguetable-container"> -->
-	<table id="tonguetable" class="scroll-table-big">
-		<thead><tr><th>Tongue</th></tr></thead>
-		<tbody><tr><td>
+	<div class="tonguetable-container">
 			<table class="inner">
-			<!-- <thead><tr><td></td><th><a class="popup-button" onclick="showFeatureExplanation('stop');">Bilabial</a></th><th>Dental</th><th>Alveolar</th><th>Lateral</th><th>Palatal</th><th>Velar</th><th>Uvular</th><th>Glottal</th></tr></thead> -->
+			<caption>Tongue<caption>
 			<thead><tr><td></td><th>Bilabial</th><th>Dental</th><th>Alveolar</th><th>Lateral</th><th>Palatal</th><th>Velar</th><th>Uvular</th><th>Glottal</th></tr></thead>
 			<tbody>
 			<tr><th>Stop</th>		
@@ -89,33 +101,35 @@
 				<td><input type="radio" class="affricate" name="lingual" id="ua" value="17" onclick="doTongue();"></td> <!-- uvular -->	
 				<td><input type="radio" class="affricate" name="lingual" id="ga" value="17" onclick="doTongue();"></td></tr> <!-- glottal -->				
 			
-				<!-- separate manner -->		
-				</tbody>
-			</table>
+	<!-- 		separate manner 
+	 -->		</tbody>
+			</table><!-- 
+			<br clear="left">
+			<p><input type="radio" name="lingual" id="</label></p> -->
 		</td></tr></tbody>
-	</table>
-	<!-- </div> -->
-
-	<!-- <table class="stealth"><tbody><tr><td> -->
-	<table id="epiglottistable" class="scroll-table-small">
-		<thead><tr><th>Glottis</th></tr></thead>
-		<tbody>
+		</table>
+	</div>
+	<div class="small-features-container">
+		<table id="epiglottistable" class="scroll-table-small">
+			<caption>Glottis</caption>
+			<tbody>
 			<tr>
 				<td><INPUT TYPE="radio" NAME="glottalization" VALUE="not-glottalized" id="not-glottalized" onclick="doVocalFolds()">&nbsp;<label for="oral">Not glottalized</label></td>
-			</tr><tr>
+			</tr>
+			<tr>
 				<td><INPUT TYPE="radio" checked=true NAME="glottalization" VALUE="glottalized" id="glottalized" onclick="doVocalFolds()">&nbsp;<label for="glottalized">Glottalized</label></td>
 			</tr>
-		</tbody>
-	</table>
-	<table id="labializationtable" class="scroll-table-small">
-		<thead><tr><th>Lips</th></tr></thead>
-		<tbody>
+			</tbody>
+		</table>
+		<table id="labializationtable" class="scroll-table-small">
+			<caption>Lips</caption>
+			<tbody>
 			<tr>
-				<td><INPUT TYPE="radio" NAME="labialization" VALUE="not-labialized" id="not-labialized" onclick="doLips();">&nbsp;<label for="not-labialized">Not labialized<label for="spread"></td>
-				</tr><tr>
-				<td><INPUT TYPE="radio" checked=true NAME="labialization" VALUE="labialized" id="labialized" onclick="doLips();">&nbsp;<label for="labialized">Labialized<label for="spread"></td>
+			<td><INPUT TYPE="radio" NAME="labialization" VALUE="not-labialized" id="not-labialized" onclick="doLips();">&nbsp;<label for="not-labialized">Not labialized<label for="spread"></td>
+			</tr><tr>
+			<td><INPUT TYPE="radio" checked=true NAME="labialization" VALUE="labialized" id="labialized" onclick="doLips();">&nbsp;<label for="labialized">Labialized<label for="spread"></td>
 			</tr>
-		</tbody>
+			</tbody>
 	</table><br>
 	<!-- </td></tr></tbody></table> -->
 </form><br><br>
@@ -123,18 +137,43 @@
 
 <div id="search">
 	<button id="search-button" onclick="transcribe()">Search</button>
-	<span id="hint">description of symbol or non-symbol will go here</span><a class="popup-button" href="#sound_example" onclick="popMoreInfo();"><span id="exampleLink"></span></a><br>
-	<p style="font-size: large"><a class="popup-button" href="#credits">Credits</a></p>
+	<span id="hint">description of symbol or non-symbol will go here</span><br>
+	<p style="font-size: large"><a class="popup-button" href="#sound_example" onclick="popMoreInfo();">More Information</a>
+	</p>
 </div>
 
 
 <!--POPUPS-->
-<div id="featureInfo" class="overlay">
+<div id="tongue-tip" class="overlay">
 	<div class="popup">
-		<h2><span id="featureName"></span></h2>
+		<h2>Manners of Articulation</h2>
 		<a class="close" href="#">&times;</a>
 		<div class="content">
-			<p><span id="featureInfoText"></span></p>
+			<ul>
+				<li><b>Stops:</b> consonants in which the airflow is completely stopped or blocked at the place of articulation by the tongue, lips, or vocal folds.</li>
+				<li><b>Fricatives:</b> consonants in which air is forced through a narrow opening, causing friction.</li>
+				<li><b>Affricates:</b> sequences of a stop immediately followed by a fricative, but behaving as a single sound: <br>for example, t̓ᶿ is sort of like t̓ + θ, c is sort of like t + s, č is sort of like t + š.<br>or<br>tth’ is sort of like t’ + th, ts is sort of like t + s, tsh is sort of like t + sh.</li>
+				<li><b>Resonant:</b> consonants involving less obstruction than a fricative: nasals (m, n), liquid (l), glides (y, w).</li>
+		</div>
+	</div>
+</div>
+
+<div id="glottal-tip" class="overlay">
+	<div class="popup">
+		<h2>Glottalized Consonants</h2>
+		<a class="close" href="#">&times;</a>
+		<div class="content">
+			Glottalized consonants are produced with glottal articulation (a “catch in the throat”) as well as oral articulation, written with an apostrophe < ̓> on top of or beside the sound, for example m̓ or m’ = m with a glottal catch. Glottalized resonants typically have the catch in the after the resonant, but maybe have in before when they follow a stressed, non-long vowel. Glottalized stops use the catch in the throat a little bit differently, and have it during the stop to help increase the air pressure in the mouth and give the stop a “poppy” quality.
+		</div>
+	</div>
+</div>
+
+<div id="labial-tip" class="overlay">
+	<div class="popup">
+		<h2>Labialized Consonants</h2>
+		<a class="close" href="#">&times;</a>
+		<div class="content">
+			Labialized consonants are produced with rounded lips, written with a w or superscript w <ʷ> after the consonant’s letter, for example qʷ ow qw = q with rounded lips. Note that while the w or ʷ is written after the letter, you should round your lips throughout the sound.
 		</div>
 	</div>
 </div>
@@ -167,6 +206,8 @@
 		</div>
 	</div>
 </div>
+
+
 
 <script src="js/doSagittalB.js"></script>
 <!-- <script type="module" src="https://server.com/sounds.js"></script> -->
