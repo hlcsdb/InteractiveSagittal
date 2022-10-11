@@ -58,21 +58,36 @@
 <div id="controlpanel">
 <form name="samform">
 	<div class="tonguetable-container">
-			<table class="inner">
+			<table class="scroll-table-big">
 			<caption>Tongue<caption>
-			<thead><tr><td></td><th>Bilabial</th><th>Dental</th><th>Alveolar</th><th>Lateral</th><th>Palatal</th><th>Velar</th><th>Uvular</th><th>Glottal</th></tr></thead>
+			<thead>
+				<tr>
+					<th></th>
+					<th>Bilabial</th>
+					<th>Dental</th>
+					<th>Alveolar</th>
+					<th>Lateral</th>
+					<th>Palatal</th>
+					<th>Velar</th>
+					<th>Uvular</th>
+					<th>Glottal</th>
+				</tr>
+			</thead>
 			<tbody>
-			<tr><th>Stop</th>		
-				<td><input type="radio" class="stop" name="lingual" id="bs" value="00" onclick="doTongue();"></td> <!-- bilabial -->
-				<td><input type="radio" class="stop" name="lingual" id="ds" value="21" onclick="doTongue();"></td> <!-- dental -->
-				<td><input type="radio" class="stop" name="lingual" id="as" value="22" onclick="doTongue();"></td> <!-- alveolar -->
-				<td><input type="radio" class="stop" name="lingual" id="pas" value="24" onclick="doTongue();"></td> <!-- lateral -->
-				<td><input type="radio" class="stop" name="lingual" id="ps" value="25" onclick="doTongue();"></td> <!-- palatal -->
-				<td><input type="radio" class="stop" name="lingual" id="vs" value="26" onclick="doTongue();"></td> <!-- velar -->
-				<td><input type="radio" class="stop" name="lingual" id="us" value="27" onclick="doTongue();" checked=true></td> <!-- uvular -->
-				<td><input type="radio" class="stop" name="lingual" id="gs" value="27" onclick="doTongue();"></td></tr> <!-- glottal -->
+				<tr>
+					<th>Stop</th>		
+					<td><input type="radio" class="stop" name="lingual" id="bs" value="00" onclick="doTongue();"></td> <!-- bilabial -->
+					<td><input type="radio" class="stop" name="lingual" id="ds" value="21" onclick="doTongue();"></td> <!-- dental -->
+					<td><input type="radio" class="stop" name="lingual" id="as" value="22" onclick="doTongue();"></td> <!-- alveolar -->
+					<td><input type="radio" class="stop" name="lingual" id="pas" value="24" onclick="doTongue();"></td> <!-- lateral -->
+					<td><input type="radio" class="stop" name="lingual" id="ps" value="25" onclick="doTongue();"></td> <!-- palatal -->
+					<td><input type="radio" class="stop" name="lingual" id="vs" value="26" onclick="doTongue();"></td> <!-- velar -->
+					<td><input type="radio" class="stop" name="lingual" id="us" value="27" onclick="doTongue();" checked=true></td> <!-- uvular -->
+					<td><input type="radio" class="stop" name="lingual" id="gs" value="27" onclick="doTongue();"></td>
+				</tr> <!-- glottal -->
 
-			<tr><th>Fricative</th>	<td><input type="radio" class="fricative" name="lingual" id="bf" value="00" onclick="doTongue();"></td> <!-- bilabial -->
+			<tr>
+				<th>Fricative</th>	<td><input type="radio" class="fricative" name="lingual" id="bf" value="00" onclick="doTongue();"></td> <!-- bilabial -->
 				<td><input type="radio" class="fricative" name="lingual" id="df" value="11" onclick="doTongue();"></td> <!-- dental -->
 				<td><input type="radio" class="fricative" name="lingual" id="af" value="12" onclick="doTongue();"></td> <!-- alveolar -->
 				<td><input type="radio" class="fricative" name="lingual" id="paf" value="14" onclick="doTongue();"></td> <!-- lateral -->

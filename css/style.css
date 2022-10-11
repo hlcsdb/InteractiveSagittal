@@ -19,7 +19,6 @@ body {	/*background: #3a3a40; */
 a {	text-decoration: none;}
 a:link {
 	color: black;
-	text-decoration: underline;
 	text-decoration-thickness: 0.1rem;
 }
 
@@ -41,13 +40,14 @@ a:hover {
 
 table {	border: thin solid black;
 		margin: 4px;
-		display: block;
-		float: left;
+		display: float;
+		float: none;
 		vertical-align: top;
 		/*background: #3a3a40;*/
 		background: #F3E8BF;
 		border-radius: 0.5em;
-		font-size: 1em;}
+		font-size: 14pt;}
+/* caption {width: 100%;} */
 thead {width: 100%;}
 tbody {width: 100%;}
 tr {width: 100%;}
@@ -57,39 +57,69 @@ table.inner {	border: thin solid #1a1a20;
 td {padding: 4px;
 	white-space: nowrap;}
 
-th {font-family: 'Linux Biolinum', 'Linux Biolinum G', 'Linux Biolinum O', sans-serif;
+th, caption {font-family: 'Linux Biolinum', 'Linux Biolinum G', 'Linux Biolinum O', sans-serif;
 	font-variant: small-caps;
 	padding: 4px;
-	border-bottom: thin solid black;
 	font-weight: normal;
-	text-transform: lowercase;} 
+	text-transform: lowercase;
+	vertical-align: middle} 
+
+caption {	border-bottom: thin solid black;
+			padding: 0px}
 
 table.inner th {border: none;
 				text-align: left;}
 table.inner td {text-align: center;}
 
-table.stealth {	border: none;
-				margin: 0px;
-				padding: 0px;
-				vertical-align: top;
-				display: inline;
-				background: transparent;
-				border-radius: 0px;}
-				
-table.stealth tr {	padding: 0px;
-					margin: 0px;
-					background: transparent;}
-				
-table.stealth td {	padding: 0px;
-					margin: 0px;
-					background: transparent;}
-					
-table.stealth tr td table {	width: 100%;
-							margin-bottom: 1em;
-							margin-top: 2px;}
-							
-/*table.stealth tr td table tr td {	padding: 4px;
-									white-space: nowrap;}*/
+div.tonguetable-container{
+	display: flex;
+	/* flex-basis: auto; */
+	/* flex-direction: row; */
+	/* flex-wrap: wrap; */
+	/* overflow-x: auto; */
+	border: thin solid black
+	/* flex: 100%; */
+}
+
+table.scroll-table-big{
+	display: flex;
+	flex-basis: auto;
+	flex-direction: column;
+	flex-shrink: 0;
+	position: relative;
+	top: auto;
+
+}
+table.scroll-table-big caption {
+	border-bottom: none;
+	/* top: auto; */
+	padding-top: 4px;
+}
+
+div.small-features-container{
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction:row;
+	position: relative;
+	top: auto;
+	/* overflow-x: auto; */
+
+}
+
+table.scroll-table-small{
+	position: relative;
+	/*width: 70%;*/
+	overflow-x: auto;
+	min-width: 25%;
+	/* width: 21%; */
+	border: solid black;
+	display: block;
+	flex-wrap: wrap;
+}
+table.scroll-table-small caption {
+	border-bottom: thin solid black
+}
+									
 
 h1 {
 	display: block;
@@ -207,7 +237,7 @@ img {
 
 #search{
 	/*width: 5%;*/
-	width: ;
+	/* width: */
 	/*height: 11.8em;*/
 	float: left;
 	/*border: solid black;*/
@@ -247,29 +277,6 @@ img {
 	/*padding-left: 2em;*/
 	/*height: 1.5em;*/
 
-
-
-table.scroll-table-big{
-	position: sticky;
-	top: 0;
-	/*width: 70%;*/
-	overflow-x: auto;
-	width: 72%;
-	border: solid black;
-}
-
-table.scroll-table-small{
-	position: sticky;
-	top: 0;
-	/*width: 70%;*/
-	overflow-x: auto;
-	/*min-width: 17%;*/
-	width: 21%;
-	border: solid black;
-	display: flex;
-  flex-wrap: wrap;
-}
-
 /*table.scroll-table{
 	min-width: 18em;
 	max-width: 70%;
@@ -279,7 +286,7 @@ table.scroll-table-small{
 
 .popup-button {
  	color: black;
-	font-size: 1em;
+	font-size: 12pt;
 	cursor: pointer;
 	font-family: 'Linux Biolinum', 'Linux Biolinum G', 'Linux Biolinum O', sans-serif;
 	font-variant: small-caps;
