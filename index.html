@@ -7,18 +7,18 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
 	<link rel="stylesheet" href="css/style.css">
 </head>
-<body onload ="transcribe()">
+<!-- <body onload ="transcribe()"> -->
 
 <h1>Interactive Sagittal Visualization</h1>
 <div id="illustrations">
 	<div style="white-space: nowrap; background=#ffffff; border-collapse: collapse;" id="Sammy">
 		<img id="nasalcavity" alt="" src="images/top-oral.gif" width=100% height=27%>
 		<br>
-		<img id="lips" alt="" src="images/lips-rounded.gif" width=24.4% height=23%>
-		<img id="tongue" alt="" src="images/tongue-27.gif" width=54.2% height=23%>
+		<img id="lips" alt="" src="images/lips-spread.gif" width=24.4% height=23%>
+		<img id="tongue" alt="" src="images/tongue-00.gif" width=54.2% height=23%>
 		<img id="velum" alt="" src="images/back-oral.gif" width=21.4% height="23%">
 		<br>
-		<img id="sagbottom" alt="" src="images/bottom-voiceless-glottal.gif" width=100% height=50%>
+		<img id="sagbottom" alt="" src="images/bottom-voiceless-noglottal.gif" width=100% height=50%>
 	</div>
 	<br>
 
@@ -58,7 +58,7 @@
 				<td><input type="radio" class="stop" name="lingual" id="pas" value="24" onclick="doTongue();"></td> <!-- lateral -->
 				<td><input type="radio" class="stop" name="lingual" id="ps" value="25" onclick="doTongue();"></td> <!-- palatal -->
 				<td><input type="radio" class="stop" name="lingual" id="vs" value="26" onclick="doTongue();"></td> <!-- velar -->
-				<td><input type="radio" class="stop" name="lingual" id="us" value="27" onclick="doTongue();" checked=true></td> <!-- uvular -->
+				<td><input type="radio" class="stop" name="lingual" id="us" value="27" onclick="doTongue();"></td> <!-- uvular -->
 				<td><input type="radio" class="stop" name="lingual" id="gs" value="27" onclick="doTongue();"></td></tr> <!-- glottal -->
 
 			<tr><th><a class="popup-button" onclick="showFeatureExplanation('fricative');">Fricative</a></th><td><input type="radio" class="fricative" name="lingual" id="bf" value="00" onclick="doTongue();"></td> <!-- bilabial -->
@@ -102,9 +102,9 @@
 		<thead><tr><th><a class="popup-button" onclick="showFeatureExplanation('glottalized');">Glottis</a></th></tr></thead>
 		<tbody>
 			<tr>
-				<td><INPUT TYPE="radio" NAME="glottalization" VALUE="not-glottalized" id="not-glottalized" onclick="doVocalFolds()">&nbsp;<label for="oral">Not glottalized</label></td>
+				<td><INPUT TYPE="radio" NAME="glottalization" VALUE="not-glottalized" id="not-glottalized" checked="true" onclick="doVocalFolds()">&nbsp;<label for="oral">Not glottalized</label></td>
 			</tr><tr>
-				<td><INPUT TYPE="radio" checked=true NAME="glottalization" VALUE="glottalized" id="glottalized" onclick="doVocalFolds()">&nbsp;<label for="glottalized">Glottalized</label></td>
+				<td><INPUT TYPE="radio" NAME="glottalization" VALUE="glottalized" id="glottalized" onclick="doVocalFolds()">&nbsp;<label for="glottalized">Glottalized</label></td>
 			</tr>
 		</tbody>
 	</table>
@@ -112,9 +112,9 @@
 		<thead><tr><th><a class="popup-button" onclick="showFeatureExplanation('lablialized');">Lips</a></th></tr></thead>
 		<tbody>
 			<tr>
-				<td><INPUT TYPE="radio" NAME="labialization" VALUE="not-labialized" id="not-labialized" onclick="doLips();">&nbsp;<label for="not-labialized">Not labialized<label for="spread"></td>
+				<td><INPUT TYPE="radio" NAME="labialization" VALUE="not-labialized" id="not-labialized" checked="true" onclick="doLips();">&nbsp;<label for="not-labialized">Not labialized<label for="spread"></td>
 				</tr><tr>
-				<td><INPUT TYPE="radio" checked=true NAME="labialization" VALUE="labialized" id="labialized" onclick="doLips();">&nbsp;<label for="labialized">Labialized<label for="spread"></td>
+				<td><INPUT TYPE="radio" NAME="labialization" VALUE="labialized" id="labialized" onclick="doLips();">&nbsp;<label for="labialized">Labialized<label for="spread"></td>
 			</tr>
 		</tbody>
 	</table><br>
@@ -124,7 +124,7 @@
 
 <div id="search">
 	<button id="search-button" onclick="transcribe()">Search</button>
-	<span id="hint">description of symbol or non-symbol will go here</span><a class="popup-button" href="#sound_example" onclick="popMoreInfo();"><span id="exampleLink"></span></a><br>
+	<span id="hint">Select features of a sound. Click to see if it's a sound in the chosen language.</span><a class="popup-button" href="#sound_example" onclick="popMoreInfo();"><span id="exampleLink"></span></a><br>
 	<p style="font-size: large"><a class="popup-button" href="#credits">Credits</a></p>
 </div>
 
