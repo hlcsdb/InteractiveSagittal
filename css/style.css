@@ -39,65 +39,119 @@ a:hover {
 	text-decoration-thickness: 0.1rem;
 	}
 
-table {	border: thin solid black;
-		margin: 4px;
-		display: block;
-		float: left;
-		vertical-align: top;
-		/*background: #3a3a40;*/
-		background: #F3E8BF;
-		border-radius: 0.5em;
-		font-size: 1em;}
-thead {width: 100%;}
+table {	
+	border: thin solid black;
+	margin: 4px;
+	display: block;
+	float: left;
+	vertical-align: top;
+	background: #F3E8BF;
+	border-radius: 0.5em;
+	font-size: 1em;
+	width: fit-content;
+}
+
+thead {
+	width: 100%;
+	height: 42px;
+}
+
 tbody {width: 100%;}
+
 tr {width: 100%;}
-table.inner {	border: thin solid #1a1a20;
-				background: #F3E8BF;}
 
-td {padding: 4px;
-	white-space: nowrap;}
+table.inner {	
+	border: thin solid #1a1a20;
+	background: #F3E8BF;
+	width: fit-content;
+	table-layout: fixed;
+}
 
-th {font-family: 'Linux Biolinum', 'Linux Biolinum G', 'Linux Biolinum O', sans-serif;
-	font-variant: small-caps;
+td {
 	padding: 4px;
-	border-bottom: thin solid black;
-	font-weight: normal;
-	text-transform: lowercase;} 
+	white-space: nowrap;
+}
 
-table.inner th {border: none;
-				text-align: left;}
-table.inner td {text-align: center;}
+table.inner th {
+	border: none;
+	text-align: left;
+}
 
-table.stealth {	border: none;
-				margin: 0px;
-				padding: 0px;
-				vertical-align: top;
-				display: inline;
-				background: transparent;
-				border-radius: 0px;}
+table.inner td {
+	text-align: center;
+}
+
+table.stealth {	
+	border: none;
+	margin: 0px;
+	padding: 0px;
+	vertical-align: top;
+	display: inline;
+	background: transparent;
+	border-radius: 0px;
+}
 				
-table.stealth tr {	padding: 0px;
-					margin: 0px;
-					background: transparent;}
+table.stealth tr {	
+	padding: 0px;
+	margin: 0px;
+	background: transparent;
+}
 				
-table.stealth td {	padding: 0px;
-					margin: 0px;
-					background: transparent;}
+table.stealth td {	
+	padding: 0px;
+	margin: 0px;
+	background: transparent;
+}
 					
-table.stealth tr td table {	width: 100%;
-							margin-bottom: 1em;
-							margin-top: 2px;}
+table.stealth tr td table {	
+	width: 100%;
+	margin-bottom: 1em;
+	margin-top: 2px;
+}
 							
 /*table.stealth tr td table tr td {	padding: 4px;
 									white-space: nowrap;}*/
+
+th.column-header {
+  font-family: 'Linux Biolinum', 'Linux Biolinum G', 'Linux Biolinum O', sans-serif;
+  font-variant: small-caps;
+  padding: 10px;
+  border-bottom: thin solid black;
+  font-weight: normal;
+  text-transform: lowercase;
+  white-space: nowrap; /* prevent text wrap in column headers */
+}
+
+th.row-header {
+  font-family: 'Linux Biolinum', 'Linux Biolinum G', 'Linux Biolinum O', sans-serif;
+  font-variant: small-caps;
+  padding: 4px;
+  border-bottom: thin solid black;
+  font-weight: normal;
+  text-transform: lowercase;
+  white-space: normal; /* allow text wrap in row headers */
+  width: 100px; /* set initial width */
+}
+
+th.table-header {
+  font-family: 'Linux Biolinum', 'Linux Biolinum G', 'Linux Biolinum O', sans-serif;
+  font-variant: small-caps;
+  padding: 4px;
+  border-bottom: thin solid black;
+  font-weight: normal;
+  text-transform: lowercase;
+  white-space: nowrap; /* prevent text wrap in column headers */
+}
+
 
 h1 {
 	display: block;
 	font-family: 'Linux Biolinum', 'Linux Biolinum G', 'Linux Biolinum O', sans-serif;
 	text-align: center;
 	font-weight: normal;
-	margin: 0em;}
-	
+	margin: 0em;
+}
+
 p.description {	
 	text-align: left;
 	margin-left: 1em;
@@ -117,16 +171,6 @@ p.formatbuttons {
 	position: relative;
 	left: 1em;
 	/*border: solid black;*/
-}
-
-#credits{
-	display: block;
-	float: none;
-	margin-left: 45pt;
-	/*border: solid black;*/
-	font-size: 1em;
-	/*font-variant: small-caps;*/
-	/*text-decoration: underline;*/
 }
 
 #text {	
@@ -174,27 +218,28 @@ img {
 	float: left;
 	border: 0%;
 	padding: 0%;
-	margin: 0%;
+	top-margin: 0%;
 }
 
 #IPA {	
 	transform: translateX(+25%);
-		white-space: nowrap; 
-		font-size: 3vw;
-		
-		background: #ffffff;
-		border: 4px solid #8a8a90;
-		color: #000000; 
-		text-align: center;
-		align-self: center;
-		font-family: 'Charis SIL', 'Brill', 'Libertinus Serif', 'Linux Libertine G', 'Linux Libertine', 'Linux Biolinum G', 'Linux Biolinum', 'Doulos SIL', 'Cardo', 'DejaVu Serif', 'Lucida Grande', 'Symbola', 'Junicode';
-		display: block;
-		float: left;
-		min-width: 10%;
-		max-width: 50%;
-		height: auto;
-		padding: 1ex;
-		border-radius: 12pt;}	
+	white-space: nowrap; 
+	font-size: 3vw;
+	
+	background: #ffffff;
+	border: 4px solid #8a8a90;
+	color: #000000; 
+	text-align: center;
+	align-self: center;
+	font-family: 'Charis SIL', 'Brill', 'Libertinus Serif', 'Linux Libertine G', 'Linux Libertine', 'Linux Biolinum G', 'Linux Biolinum', 'Doulos SIL', 'Cardo', 'DejaVu Serif', 'Lucida Grande', 'Symbola', 'Junicode';
+	display: block;
+	float: left;
+	min-width: 10%;
+	max-width: 50%;
+	height: auto;
+	padding: 1ex;
+	border-radius: 12pt;
+}	
 
 #controlpanel {	
 	min-width: 90%;
@@ -238,23 +283,12 @@ img {
 	border: solid black;
 }
 
-/*#hint{
-	/*border: solid black;*/
-	/*margin-top: 2pt;*/
-/*	float: left;
-	width: 90%;
-	margin-top: 0.5em;*/
-	/*padding-left: 2em;*/
-	/*height: 1.5em;*/
-
-
-
 table.scroll-table-big{
 	position: sticky;
 	top: 0;
-	/*width: 70%;*/
+	width: fit-content;
+  max-width: 72vw; /* Set the maximum width to 72% of the viewport width */
 	overflow-x: auto;
-	width: 72%;
 	border: solid black;
 }
 
@@ -277,42 +311,58 @@ table.scroll-table-small{
 	}*/
 
 
-.popup-button {
+.example-popup-trigger {
  	color: black;
 	font-size: 1em;
 	cursor: pointer;
 	font-family: 'Linux Biolinum', 'Linux Biolinum G', 'Linux Biolinum O', sans-serif;
 	font-variant: small-caps;
 	padding: 4px;
-	/*border-bottom: thin solid black;*/
-	font-weight: normal;
-	text-transform: lowercase;
-  transition: all 0.1s ease-out;
+	border-bottom: thin solid black;
+	font-weight: normal;*/
+	text-transform: lowercase;*/
+  transition: all 1s ease-out;*/
 }
 
-/*.button:hover {
+.button:hover {
   background: #06D85F;
-}*/
+}
 
+.feature-popup-button-trigger{
+	color: black;
+	font-size: 1em;
+	cursor: pointer;
+	font-family: 'Linux Biolinum', 'Linux Biolinum G', 'Linux Biolinum O', sans-serif;
+	font-variant: small-caps;
+	padding: 0;
+	/*border-bottom: thin solid black;*/
+	font-weight: normal;*/
+	text-transform: lowercase;*/
+  transition: all 1s ease-out;*/
+}
+.feature-popup-button-trigger:hover{
+	color: blue;
+}
 
 .overlay {
+	display: none;
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.7);
-  transition: opacity 500ms;
-  visibility: hidden;
-  opacity: 0;
+  z-index: 999; /* Ensure the overlay appears on top of other elements */
 }
 
-.overlay:target {
+/*.overlay:target {
   visibility: visible;
   opacity: 1;
-}
+}*/
 
-.popup {
+/*.popup {
   margin: 70px auto;
   padding: 20px;
   background: #F3E8BF;
@@ -322,38 +372,29 @@ table.scroll-table-small{
   width: 45%;
   min-width: 20em;
   position: relative;
-  transition: all 5s ease-in-out;
-}
+  transition: all 1s ease-in-out;
+}*/
 
-ul.popup{
-	position: relative;
-	margin-left: 0em;
-	padding-left: 1em;
-}
 
-.popup h2 {
-  margin-top: 0;
-  /*color: #333;*/
-  font-family: Tahoma, Arial, sans-serif;
-}
-
-.popup .close {
+./*popup.close {
   position: absolute;
   top: 20px;
   right: 30px;
-  transition: all 100ms;
+  transition: all 500ms;
   font-size: 30px;
   font-weight: bold;
   text-decoration: none;
   color: black;
 }
-.popup .close:hover {
-  /*color: #06D85F;*/
-}
-.popup .content {
+
+.popup.close:hover {
+  color: #06D85F;
+}*/
+
+/*.feature-popup-content.content {
   max-height: 30%;
   overflow: auto;
-}
+}*/
 
 .hover {border-bottom: solid black;}
 
@@ -365,3 +406,129 @@ ul.popup{
 .hover:hover a {color: #3a3a40;
 				text-decoration: underline;}
 	
+.feature-popup-container {
+  display: none;
+  padding: 20px;
+  background: #F3E8BF;
+  border: solid black;
+  border-radius: 7px;
+  width: 65%;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: all 1s ease-in-out;
+  z-index:1000;
+}
+
+.feature-popup-content {
+/*  position: relative;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 500px;*/
+	max-height: 30%;
+  overflow: auto;
+}
+
+.feature-close-button {
+	position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 500ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+  z-index:1001;
+}
+
+ul.feature-popup-content{
+	position: relative;
+	margin-left: 0em;
+	padding-left: 1em;
+}
+
+.feature-popup-content h2 {
+  margin-top: 0;
+  padding-top: 0;
+  font-family: Tahoma, Arial, sans-serif;
+}
+
+.credits-popup-container {
+	display: none;
+  padding: 20px;
+  background: #F3E8BF;
+  border: solid black;
+  border-radius: 7px;
+  width: 65%;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: all 1s ease-in-out;
+  z-index:1000;
+}
+
+.credits-popup-container h2 {
+	position: relative;
+	margin-top: 0;
+	padding-top: 0;
+  font-family: Tahoma, Arial, sans-serif;
+}
+
+ul.credits-popup-container {
+  position: relative;
+  margin-left: 0em;
+  padding-left: 1em;
+}
+
+.credits-close-button {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 500ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+  z-index:1001;
+}
+
+
+.example-popup-container {
+  display: none;
+  padding: 20px;
+  background: #F3E8BF;
+  border: solid black;
+  border-radius: 7px;
+  width: 65%;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: all 1s ease-in-out;
+  z-index:1000;
+}
+
+.example-popup-content {
+  max-width: 500px;
+}
+
+.example-close-button {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 500ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+  z-index:1001;
+}
+
+@media (max-width: 768px) {
+  /* If the viewport width is less than or equal to 768px */
+  .scroll-table-big {
+    max-width: 100%; /* Set the maximum width to 100% */
+  }
+}

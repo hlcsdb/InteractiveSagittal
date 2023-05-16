@@ -1,0 +1,1625 @@
+/*ABOUT DATA STRUCTURE
+  All data is stored in an Airtable Base. It has 4 tables: Sound data, examples of sounds by language, articulation images, and articulatory descriptions
+  To get it into this script, each table was exported as a csv (with select columns) and converted to a json. 
+  The json was copy+pasted into this script and given a const identifier.
+  To add another language:
+    Add your language's sounds into the 'examples of sounds by language' table, exportcsv and convert to json and copy contents here.
+    Add your language's name to languages[]
+    Add the const variable name to languageExamples[]
+    Add new span to html file under "Choose the language you would like to work with:" with the int that matches the index of your language's name in 'language[]'
+  To replace languages:
+    Replace the name of your language in the html file under "Choose the language you would like to work with:"
+    Replace the name in the corresponding index in languages[] and your sound data in languageExamples[]
+*/
+// const soundData=[{"hulq": "p", "hunq": "p", "Lips": "closed", "Manner": "stop", "Place": "bilabial", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "p,p", "palateImage": "palate-oral", "lipImage": "lips-bilabial", "tongueImage": "tongue-bilabial-stop", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "p’", "hunq": "p̓", "Lips": "closed", "Manner": "stop", "Place": "bilabial", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "glottalized", "SoundExamples": "p’,p̓", "palateImage": "palate-oral", "lipImage": "lips-bilabial", "tongueImage": "tongue-bilabial-stop", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-closed", "VocalFolds": "closed"}, {"hulq": "n", "hunq": "n", "Lips": "spread", "Manner": "nasal", "Place": "alveolar", "Labialization": "not-labialized", "Oral": "nasal", "Epiglottis": "not-glottalized", "SoundExamples": "n,n", "palateImage": "palate-nasal", "lipImage": "lips-not-labialized", "tongueImage": "tongue-alveolar-stop", "velumImage": "velum-nasal", "vocalfoldsImage": "vocalFolds-vibrating", "VocalFolds": "vibrating"}, {"hulq": "m", "hunq": "m", "Lips": "closed", "Manner": "nasal", "Place": "bilabial", "Labialization": "not-labialized", "Oral": "nasal", "Epiglottis": "not-glottalized", "SoundExamples": "m,m", "palateImage": "palate-nasal", "lipImage": "lips-bilabial", "tongueImage": "tongue-bilabial-stop", "velumImage": "velum-nasal", "vocalfoldsImage": "vocalFolds-vibrating", "VocalFolds": "vibrating"}, {"hulq": "m’", "hunq": "m̓", "Lips": "closed", "Manner": "nasal", "Place": "bilabial", "Labialization": "not-labialized", "Oral": "nasal", "Epiglottis": "glottalized", "SoundExamples": "m’,m̓", "palateImage": "palate-nasal", "lipImage": "lips-bilabial", "tongueImage": "tongue-bilabial-stop", "velumImage": "velum-nasal", "vocalfoldsImage": "vocalFolds-closed-vibrating", "VocalFolds": "closed,vibrating"}, {"hulq": "tth’", "hunq": "t̓ᶿ", "Lips": "spread", "Manner": "affricate", "Place": "dental", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "tth’,t̓ᶿ", "palateImage": "palate-oral", "lipImage": "lips-dental-affricate", "tongueImage": "tongue-dental-affricate", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-closed", "VocalFolds": "closed"}, {"hulq": "th", "hunq": "θ", "Lips": "spread", "Manner": "fricative", "Place": "dental", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "th,θ", "palateImage": "palate-oral", "lipImage": "lips-not-labialized-dental-fricative", "tongueImage": "tongue-dental-fricative", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "t", "hunq": "t", "Lips": "spread", "Manner": "stop", "Place": "alveolar", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "t,t", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-alveolar-stop", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "t’", "hunq": "t̓", "Lips": "spread", "Manner": "stop", "Place": "alveolar", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "glottalized", "SoundExamples": "t’,t̓", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-alveolar-stop", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-closed", "VocalFolds": "closed"}, {"hulq": "ts", "hunq": "c", "Lips": "spread", "Manner": "affricate", "Place": "alveolar", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "ts,c", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-alveolar-affricate", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "ts’", "hunq": "c̓", "Lips": "spread", "Manner": "affricate", "Place": "alveolar", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "glottalized", "SoundExamples": "ts’,c̓", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-alveolar-affricate", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-closed", "VocalFolds": "closed"}, {"hulq": "s", "hunq": "s", "Lips": "spread", "Manner": "fricative", "Place": "alveolar", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "s,s", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-alveolar-fricative", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "n’", "hunq": "n̓", "Lips": "spread", "Manner": "nasal", "Place": "alveolar", "Labialization": "not-labialized", "Oral": "nasal", "Epiglottis": "glottalized", "SoundExamples": "n’,n̓", "palateImage": "palate-nasal", "lipImage": "lips-not-labialized", "tongueImage": "tongue-alveolar-nasal", "velumImage": "velum-nasal", "vocalfoldsImage": "vocalFolds-closed-vibrating", "VocalFolds": "closed,vibrating"}, {"hulq": "tl", "hunq": "tl", "Lips": "spread", "Manner": "affricate", "Place": "lateral", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-alveolar-affricate", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "tl’", "hunq": "ƛ̓", "Lips": "spread", "Manner": "affricate", "Place": "lateral", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "glottalized", "SoundExamples": "tl’,ƛ̓", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-alveolar-affricate", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-closed", "VocalFolds": "closed"}, {"hulq": "lh", "hunq": "ł", "Lips": "spread", "Manner": "fricative", "Place": "lateral", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "lh,ł", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-lateral-fricative", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "l", "hunq": "l", "Lips": "spread", "Manner": "liquidglide", "Place": "lateral", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "l,l", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-lateral-liquidglide", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-vibrating", "VocalFolds": "vibrating"}, {"hulq": "l’", "hunq": "l̓", "Lips": "spread", "Manner": "liquidglide", "Place": "lateral", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "glottalized", "SoundExamples": "l’,l̓", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-lateral-liquidglide", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-closed-vibrating", "VocalFolds": "closed,vibrating"}, {"hulq": "ch", "hunq": "č", "Lips": "spread", "Manner": "affricate", "Place": "palatal", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "č", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-palatal-affricate", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "sh", "hunq": "š", "Lips": "spread", "Manner": "fricative", "Place": "palatal", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "sh,š", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-palatal-fricative", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "y", "hunq": "y", "Lips": "spread", "Manner": "liquidglide", "Place": "palatal", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "y,y", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-palatal-liquidglide", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-vibrating", "VocalFolds": "vibrating"}, {"hulq": "y’", "hunq": "y̓", "Lips": "spread", "Manner": "liquidglide", "Place": "palatal", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "glottalized", "SoundExamples": "y’,y̓", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-palatal-liquidglide", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-closed-vibrating", "VocalFolds": "closed,vibrating"}, {"hulq": "k", "hunq": "k", "Lips": "spread", "Manner": "stop", "Place": "velar", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "k,k", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-velar-stop", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "kw", "hunq": "kʷ", "Lips": "rounded", "Manner": "stop", "Place": "velar", "Labialization": "labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "kw,kʷ", "palateImage": "palate-oral", "lipImage": "lips-labialized", "tongueImage": "tongue-velar-stop", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "kw’", "hunq": "k̓ʷ", "Lips": "rounded", "Manner": "stop", "Place": "velar", "Labialization": "labialized", "Oral": "oral", "Epiglottis": "glottalized", "SoundExamples": "kw’,k̓ʷ", "palateImage": "palate-oral", "lipImage": "lips-labialized", "tongueImage": "tongue-velar-stop", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-closed", "VocalFolds": "closed"}, {"hulq": "hw", "hunq": "xʷ", "Lips": "rounded", "Manner": "fricative", "Place": "velar", "Labialization": "labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "hw", "palateImage": "palate-oral", "lipImage": "lips-labialized", "tongueImage": "tongue-velar-fricative", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "w", "hunq": "w", "Lips": "rounded", "Manner": "liquidglide", "Place": "velar", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "w,w", "palateImage": "palate-oral", "lipImage": "lips-labialized", "tongueImage": "tongue-velar-liquidglide", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-vibrating", "VocalFolds": "vibrating"}, {"hulq": "w’", "hunq": "w̓", "Lips": "rounded", "Manner": "liquidglide", "Place": "velar", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "glottalized", "SoundExamples": "w’,w̓", "palateImage": "palate-oral", "lipImage": "lips-labialized", "tongueImage": "tongue-velar-liquidglide", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-closed-vibrating", "VocalFolds": "closed,vibrating"}, {"hulq": "q", "hunq": "q", "Lips": "spread", "Manner": "stop", "Place": "uvular", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "q,q", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-uvular-stop", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "q’", "hunq": "q̓", "Lips": "spread", "Manner": "stop", "Place": "uvular", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "glottalized", "SoundExamples": "q’,q̓", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-uvular-stop", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-closed", "VocalFolds": "closed"}, {"hulq": "x", "hunq": "x", "Lips": "spread", "Manner": "fricative", "Place": "uvular", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "x̌", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-uvular-fricative", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "qw", "hunq": "qʷ", "Lips": "rounded", "Manner": "stop", "Place": "uvular", "Labialization": "labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "qw,qʷ", "palateImage": "palate-oral", "lipImage": "lips-labialized", "tongueImage": "tongue-uvular-stop", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "qw’", "hunq": "q̓ʷ", "Lips": "rounded", "Manner": "stop", "Place": "uvular", "Labialization": "labialized", "Oral": "oral", "Epiglottis": "glottalized", "SoundExamples": "qw’,q̓ʷ", "palateImage": "palate-oral", "lipImage": "lips-labialized", "tongueImage": "tongue-uvular-stop", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-closed", "VocalFolds": "closed"}, {"hulq": "xw", "hunq": "x̌ʷ", "Lips": "rounded", "Manner": "fricative", "Place": "uvular", "Labialization": "labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "xw,xʷ,x̌ʷ", "palateImage": "palate-oral", "lipImage": "lips-labialized", "tongueImage": "tongue-uvular-fricative", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "’", "hunq": "ʔ", "Lips": "spread", "Manner": "stop", "Place": "glottal", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "’,ʔ", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-glottal-nasal", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-closed", "VocalFolds": "closed"}, {"hulq": "h", "hunq": "h", "Lips": "spread", "Manner": "fricative", "Place": "glottal", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "h,h", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-glottal-fricative", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}];
+const soundData=[{"hulq": "p", "hunq": "p", "Lips": "closed", "Manner": "stop", "Place": "bilabial", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "p,p", "palateImage": "palate-oral", "lipImage": "lips-bilabial", "tongueImage": "tongue-bilabial-stop", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "p’", "hunq": "p̓", "Lips": "closed", "Manner": "stop", "Place": "bilabial", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "glottalized", "SoundExamples": "p’,p̓", "palateImage": "palate-oral", "lipImage": "lips-bilabial", "tongueImage": "tongue-bilabial-stop", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-closed", "VocalFolds": "closed"}, {"hulq": "n", "hunq": "n", "Lips": "spread", "Manner": "nasal", "Place": "alveolar", "Labialization": "not-labialized", "Oral": "nasal", "Epiglottis": "not-glottalized", "SoundExamples": "n,n", "palateImage": "palate-nasal", "lipImage": "lips-not-labialized", "tongueImage": "tongue-alveolar-stop", "velumImage": "velum-nasal", "vocalfoldsImage": "vocalFolds-vibrating", "VocalFolds": "vibrating"}, {"hulq": "m", "hunq": "m", "Lips": "closed", "Manner": "nasal", "Place": "bilabial", "Labialization": "not-labialized", "Oral": "nasal", "Epiglottis": "not-glottalized", "SoundExamples": "m,m", "palateImage": "palate-nasal", "lipImage": "lips-bilabial", "tongueImage": "tongue-bilabial-stop", "velumImage": "velum-nasal", "vocalfoldsImage": "vocalFolds-vibrating", "VocalFolds": "vibrating"}, {"hulq": "m’", "hunq": "m̓", "Lips": "closed", "Manner": "nasal", "Place": "bilabial", "Labialization": "not-labialized", "Oral": "nasal", "Epiglottis": "glottalized", "SoundExamples": "m’,m̓", "palateImage": "palate-nasal", "lipImage": "lips-bilabial", "tongueImage": "tongue-bilabial-stop", "velumImage": "velum-nasal", "vocalfoldsImage": "vocalFolds-closed-vibrating", "VocalFolds": "closed,vibrating"}, {"hulq": "tth’", "hunq": "t̓ᶿ", "Lips": "spread", "Manner": "affricate", "Place": "dental", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "tth’,t̓ᶿ", "palateImage": "palate-oral", "lipImage": "lips-dental-affricate", "tongueImage": "tongue-dental-affricate", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-closed", "VocalFolds": "closed"}, {"hulq": "th", "hunq": "θ", "Lips": "spread", "Manner": "fricative", "Place": "dental", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "th,θ", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-dental-fricative", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "t", "hunq": "t", "Lips": "spread", "Manner": "stop", "Place": "alveolar", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "t,t", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-alveolar-stop", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "t’", "hunq": "t̓", "Lips": "spread", "Manner": "stop", "Place": "alveolar", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "glottalized", "SoundExamples": "t’,t̓", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-alveolar-stop", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-closed", "VocalFolds": "closed"}, {"hulq": "ts", "hunq": "c", "Lips": "spread", "Manner": "affricate", "Place": "alveolar", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "ts,c", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-alveolar-affricate", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "ts’", "hunq": "c̓", "Lips": "spread", "Manner": "affricate", "Place": "alveolar", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "glottalized", "SoundExamples": "ts’,c̓", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-alveolar-affricate", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-closed", "VocalFolds": "closed"}, {"hulq": "s", "hunq": "s", "Lips": "spread", "Manner": "fricative", "Place": "alveolar", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "s,s", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-alveolar-fricative", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "n’", "hunq": "n̓", "Lips": "spread", "Manner": "nasal", "Place": "alveolar", "Labialization": "not-labialized", "Oral": "nasal", "Epiglottis": "glottalized", "SoundExamples": "n’,n̓", "palateImage": "palate-nasal", "lipImage": "lips-not-labialized", "tongueImage": "tongue-alveolar-nasal", "velumImage": "velum-nasal", "vocalfoldsImage": "vocalFolds-closed-vibrating", "VocalFolds": "closed,vibrating"}, {"hulq": "tl", "hunq": "tl", "Lips": "spread", "Manner": "affricate", "Place": "lateral", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-alveolar-affricate", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "tl’", "hunq": "ƛ̓", "Lips": "spread", "Manner": "affricate", "Place": "lateral", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "glottalized", "SoundExamples": "tl’,ƛ̓", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-alveolar-affricate", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-closed", "VocalFolds": "closed"}, {"hulq": "lh", "hunq": "ł", "Lips": "spread", "Manner": "fricative", "Place": "lateral", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "lh,ł", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-lateral-fricative", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "l", "hunq": "l", "Lips": "spread", "Manner": "liquidglide", "Place": "lateral", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "l,l", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-lateral-liquid_glide", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-vibrating", "VocalFolds": "vibrating"}, {"hulq": "l’", "hunq": "l̓", "Lips": "spread", "Manner": "liquidglide", "Place": "lateral", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "glottalized", "SoundExamples": "l’,l̓", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-lateral-liquid_glide", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-closed-vibrating", "VocalFolds": "closed,vibrating"}, {"hulq": "ch", "hunq": "č", "Lips": "spread", "Manner": "affricate", "Place": "palatal", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "č,ch", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-palatal-affricate", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "sh", "hunq": "š", "Lips": "spread", "Manner": "fricative", "Place": "palatal", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "sh,š", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-palatal-fricative", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "y", "hunq": "y", "Lips": "spread", "Manner": "liquidglide", "Place": "palatal", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "y,y", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-palatal-liquid_glide", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-vibrating", "VocalFolds": "vibrating"}, {"hulq": "y’", "hunq": "y̓", "Lips": "spread", "Manner": "liquidglide", "Place": "palatal", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "glottalized", "SoundExamples": "y’,y̓", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-palatal-liquid_glide", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-closed-vibrating", "VocalFolds": "closed,vibrating"}, {"hulq": "k", "hunq": "k", "Lips": "spread", "Manner": "stop", "Place": "velar", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "k,k", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-velar-stop", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "kw", "hunq": "kʷ", "Lips": "rounded", "Manner": "stop", "Place": "velar", "Labialization": "labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "kw,kʷ", "palateImage": "palate-oral", "lipImage": "lips-labialized", "tongueImage": "tongue-velar-stop", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "kw’", "hunq": "k̓ʷ", "Lips": "rounded", "Manner": "stop", "Place": "velar", "Labialization": "labialized", "Oral": "oral", "Epiglottis": "glottalized", "SoundExamples": "kw’,k̓ʷ", "palateImage": "palate-oral", "lipImage": "lips-labialized", "tongueImage": "tongue-velar-stop", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-closed", "VocalFolds": "closed"}, {"hulq": "hw", "hunq": "xʷ", "Lips": "rounded", "Manner": "fricative", "Place": "velar", "Labialization": "labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "hw", "palateImage": "palate-oral", "lipImage": "lips-labialized", "tongueImage": "tongue-velar-fricative", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "w", "hunq": "w", "Lips": "rounded", "Manner": "liquidglide", "Place": "velar", "Labialization": "labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "w,w", "palateImage": "palate-oral", "lipImage": "lips-labialized", "tongueImage": "tongue-velar-liquid_glide", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-vibrating", "VocalFolds": "vibrating"}, {"hulq": "w’", "hunq": "w̓", "Lips": "rounded", "Manner": "liquidglide", "Place": "velar", "Labialization": "labialized", "Oral": "oral", "Epiglottis": "glottalized", "SoundExamples": "w’,w̓", "palateImage": "palate-oral", "lipImage": "lips-labialized", "tongueImage": "tongue-velar-liquid_glide", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-closed-vibrating", "VocalFolds": "closed,vibrating"}, {"hulq": "q", "hunq": "q", "Lips": "spread", "Manner": "stop", "Place": "uvular", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "q,q", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-uvular-stop", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "q’", "hunq": "q̓", "Lips": "spread", "Manner": "stop", "Place": "uvular", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "glottalized", "SoundExamples": "q’,q̓", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-uvular-stop", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-closed", "VocalFolds": "closed"}, {"hulq": "x", "hunq": "x", "Lips": "spread", "Manner": "fricative", "Place": "uvular", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "x̌,x", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-uvular-fricative", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "qw", "hunq": "qʷ", "Lips": "rounded", "Manner": "stop", "Place": "uvular", "Labialization": "labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "qw,qʷ", "palateImage": "palate-oral", "lipImage": "lips-labialized", "tongueImage": "tongue-uvular-stop", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "qw’", "hunq": "q̓ʷ", "Lips": "rounded", "Manner": "stop", "Place": "uvular", "Labialization": "labialized", "Oral": "oral", "Epiglottis": "glottalized", "SoundExamples": "qw’,q̓ʷ", "palateImage": "palate-oral", "lipImage": "lips-labialized", "tongueImage": "tongue-uvular-stop", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-closed", "VocalFolds": "closed"}, {"hulq": "xw", "hunq": "x̌ʷ", "Lips": "rounded", "Manner": "fricative", "Place": "uvular", "Labialization": "labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "xw,xʷ,x̌ʷ", "palateImage": "palate-oral", "lipImage": "lips-labialized", "tongueImage": "tongue-uvular-fricative", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "’", "hunq": "ʔ", "Lips": "spread", "Manner": "stop", "Place": "glottal", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "’,ʔ", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-glottal-nasal", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-closed", "VocalFolds": "closed"}, {"hulq": "h", "hunq": "h", "Lips": "spread", "Manner": "fricative", "Place": "glottal", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "h,h", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-glottal-fricative", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "tth", "hunq": "t̓ᶿ", "Lips": "spread", "Manner": "affricate", "Place": "dental", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "not-glottalized", "SoundExamples": "tth", "palateImage": "palate-oral", "lipImage": "lips-dental-affricate", "tongueImage": "tongue-dental-affricate", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-open", "VocalFolds": "open"}, {"hulq": "ch’", "hunq": "č̓", "Lips": "spread", "Manner": "affricate", "Place": "palatal", "Labialization": "not-labialized", "Oral": "oral", "Epiglottis": "glottalized", "SoundExamples": "ch’", "palateImage": "palate-oral", "lipImage": "lips-not-labialized", "tongueImage": "tongue-palatal-affricate", "velumImage": "velum-oral", "vocalfoldsImage": "vocalFolds-closed", "VocalFolds": "closed"}];
+const hulqExamples=[
+  {
+    "id": "p",
+    "word": "putenum",
+    "boldIndex": "0,1",
+    "translation": "to sail",
+    "articulationDescription": "/p/ is pronounced like the /p/ in the English word “put”.",
+    "soundfile": "Isl_sail",
+    "language": "hulq",
+    "SoundData": "p",
+    "Labial (from SoundData)": "closed",
+    "Manner (from SoundData)": "stop",
+    "Place (from SoundData)": "bilabial",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "p’",
+    "word": "p’utth’tun",
+    "boldIndex": "0,2",
+    "translation": "needle",
+    "articulationDescription": "/p’/ is pronounced like /p/, but it is glottalized, so it pops.",
+    "soundfile": "Isl_needle",
+    "language": "hulq",
+    "SoundData": "p’",
+    "Labial (from SoundData)": "closed",
+    "Manner (from SoundData)": "stop",
+    "Place (from SoundData)": "bilabial",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "Epiglottis (from SoundData)": "glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "m",
+    "word": "mumuxelh",
+    "boldIndex": "0,1",
+    "translation": "caterpillar",
+    "articulationDescription": "/m/ is pronounced as in the English word “meet”.",
+    "soundfile": "Isl_caterpillar",
+    "language": "hulq",
+    "SoundData": "m",
+    "Labial (from SoundData)": "closed",
+    "Manner (from SoundData)": "nasal",
+    "Place (from SoundData)": "bilabial",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "nasal",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "m’",
+    "word": "lelum’",
+    "boldIndex": "4,6",
+    "translation": "house",
+    "articulationDescription": "/m’/ is pronounced like the hulq /m/ but glottalized, meaning that it is followed by with a catch in throat after the /m/ as /m/ + /’/. If m’ is between two vowels where the first is stressed and not long so it pops",
+    "soundfile": "Isl_house",
+    "language": "hulq",
+    "SoundData": "m’",
+    "Labial (from SoundData)": "closed",
+    "Manner (from SoundData)": "nasal",
+    "Place (from SoundData)": "bilabial",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "nasal",
+    "Epiglottis (from SoundData)": "glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "tth’",
+    "word": "tth’upsi’athun’",
+    "boldIndex": "0,4",
+    "translation": "squirrel",
+    "articulationDescription": "/tth’/ is pronounced like the hulq /tth/, but it is glottalized, so it pops",
+    "soundfile": "Isl_squirrel",
+    "language": "hulq",
+    "SoundData": "tth’",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "affricate",
+    "Place (from SoundData)": "dental",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "tth",
+    "word": "tthu si’lu",
+    "boldIndex": "0,3",
+    "translation": "the grandfather",
+    "articulationDescription": "/tth/ is pronounced as a single sound which is much like the English /t/ plus /th/ pronounced in a quick sequence. This sound only occurs in hulq in a small number of determiners, e.g. the masculine in view determiner tthu as in tthu swuy’qe’ “the man” Some speakers use a plain /t/ sound for this determiner instead as in tu swuy’qe’.",
+    "soundfile": "Isl_grandfather",
+    "language": "hulq",
+    "SoundData": "",
+    "Labial (from SoundData)": "",
+    "Manner (from SoundData)": "",
+    "Place (from SoundData)": "",
+    "Velum (from SoundData)": "",
+    "Oral (from SoundData)": "",
+    "Epiglottis (from SoundData)": "",
+    "Notes": "I don't think this sound exists"
+  },
+  {
+    "id": "th",
+    "word": "thqet",
+    "boldIndex": "0,2",
+    "translation": "tree",
+    "articulationDescription": "/th/ is pronounced as in the English word “thin”.",
+    "soundfile": "Isl_tree",
+    "language": "hulq",
+    "SoundData": "th",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "fricative",
+    "Place (from SoundData)": "dental",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "t",
+    "word": "telu",
+    "boldIndex": "0,1",
+    "translation": "money",
+    "articulationDescription": "/t/ is pronounced as in the English word “take”.",
+    "soundfile": "Isl_money",
+    "language": "hulq",
+    "SoundData": "t",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "stop",
+    "Place (from SoundData)": "alveolar",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "t’",
+    "word": "t’xum",
+    "boldIndex": "0,2",
+    "translation": "six",
+    "articulationDescription": "/t’/ is pronounced like /t/, but it is glottalized, so it pops.",
+    "soundfile": "Isl_six",
+    "language": "hulq",
+    "SoundData": "t’",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "stop",
+    "Place (from SoundData)": "alveolar",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "Epiglottis (from SoundData)": "glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "ts",
+    "word": "tselush",
+    "boldIndex": "0,2",
+    "translation": "hand",
+    "articulationDescription": "/ts/ is pronounced as a single sound: much like in the /ts/ English word “bats”.",
+    "soundfile": "Isl_hand",
+    "language": "hulq",
+    "SoundData": "ts",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "affricate",
+    "Place (from SoundData)": "alveolar",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "ts’",
+    "word": "ts’e’wi’",
+    "boldIndex": "0,3",
+    "translation": "dish; bowl; plate",
+    "articulationDescription": "/ts’/ is pronounced like the hulq /ts/, but it is glottalized, so it pops.",
+    "soundfile": "Isl_dishBowl",
+    "language": "hulq",
+    "SoundData": "ts’",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "affricate",
+    "Place (from SoundData)": "alveolar",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "Epiglottis (from SoundData)": "glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "s",
+    "word": "s’axwa’",
+    "boldIndex": "0,1",
+    "translation": "butterclam",
+    "articulationDescription": "/s/ is pronounced like the /s/ in the English word “sit”.",
+    "soundfile": "Isl_butterclam",
+    "language": "hulq",
+    "SoundData": "s",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "fricative",
+    "Place (from SoundData)": "alveolar",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "n",
+    "word": "nuts’a’",
+    "boldIndex": "0,1",
+    "translation": "one",
+    "articulationDescription": "/n/ is pronounced as in the English word “neat”.",
+    "soundfile": "Isl_one",
+    "language": "hulq",
+    "SoundData": "n",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "nasal",
+    "Place (from SoundData)": "alveolar",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "nasal",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "n’",
+    "word": "meen’",
+    "boldIndex": "0,2",
+    "translation": "weak",
+    "articulationDescription": "/n’/ is pronounced like the hulq /n/ but glottalized, meaning that it is followed by with a catch in throat after the /n/, as /n/ + /’/. If /n’/ is between two vowels where the first is stressed and not long then the catch in the throat comes before as /’/ + /n/.",
+    "soundfile": "Isl_weak",
+    "language": "hulq",
+    "SoundData": "n’",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "nasal",
+    "Place (from SoundData)": "alveolar",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "nasal",
+    "Epiglottis (from SoundData)": "glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "tl’",
+    "word": "tl’elhum",
+    "boldIndex": "0,3",
+    "translation": "salt",
+    "articulationDescription": "/tl’/ is made by holding the tongue in the place for making a /t/ sound but then releasing as an /l/ sound and making a sort of clicking sound by releasing the side or sides of the tongue.",
+    "soundfile": "Isl_salt",
+    "language": "hulq",
+    "SoundData": "tl’",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "affricate",
+    "Place (from SoundData)": "lateral",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "Epiglottis (from SoundData)": "glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "lh",
+    "word": "lhqelts’",
+    "boldIndex": "0,2",
+    "translation": "moon",
+    "articulationDescription": "/lh/ is made by holding the tongue as in /l/ but spreading and flattening it out more against the roof of the mouth. You let some air pass by making a hissing sound.",
+    "soundfile": "Isl_moon",
+    "language": "hulq",
+    "SoundData": "lh",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "fricative",
+    "Place (from SoundData)": "lateral",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "l",
+    "word": "lelum’",
+    "boldIndex": "0,1",
+    "translation": "house",
+    "articulationDescription": "/l/ is pronounced like the /l/ in the English word “long”.",
+    "soundfile": "Isl_house",
+    "language": "hulq",
+    "SoundData": "l",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "liquidglide",
+    "Place (from SoundData)": "lateral",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "l’",
+    "word": "spaal’",
+    "boldIndex": "4,6",
+    "translation": "raven",
+    "articulationDescription": "/l’/ is pronounced like the hulq /l/ but glottalized, meaning that it is followed by with a catch in throat after the /l/, as /l/ + /’/. If /l’/ is between two vowels where the first is stressed and not long, then the catch in the throat comes before as /’/ + /l/.",
+    "soundfile": "Isl_raven",
+    "language": "hulq",
+    "SoundData": "l’",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "liquidglide",
+    "Place (from SoundData)": "lateral",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "Epiglottis (from SoundData)": "glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "ch",
+    "word": "chukuns",
+    "boldIndex": "0,2",
+    "translation": "chicken",
+    "articulationDescription": "/ch/ is pronounced as in the English word “chicken”.",
+    "soundfile": "Isl_chicken",
+    "language": "hulq",
+    "SoundData": "",
+    "Labial (from SoundData)": "",
+    "Manner (from SoundData)": "",
+    "Place (from SoundData)": "",
+    "Velum (from SoundData)": "",
+    "Oral (from SoundData)": "",
+    "Epiglottis (from SoundData)": "",
+    "Notes": "tsh?"
+  },
+  {
+    "id": "sh",
+    "word": "shuptun",
+    "boldIndex": "0,2",
+    "translation": "knife",
+    "articulationDescription": "/sh/ is pronounced as in the English word “shore”.",
+    "soundfile": "Isl_knife",
+    "language": "hulq",
+    "SoundData": "sh",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "fricative",
+    "Place (from SoundData)": "palatal",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "y",
+    "word": "yunus",
+    "boldIndex": "0,1",
+    "translation": "teeth",
+    "articulationDescription": "/y/ is pronounced as in the English word “yellow”.",
+    "soundfile": "Isl_teeth",
+    "language": "hulq",
+    "SoundData": "y",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "liquidglide",
+    "Place (from SoundData)": "palatal",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "y’",
+    "word": "qwlhey’",
+    "boldIndex": "5,7",
+    "translation": "log",
+    "articulationDescription": "/y’/ is pronounced like the hulq /y/ but glottalized, meaning that it is followed by with a catch in throat after the /y/ as /y/ + /’/. If /y’/ is between two vowels where the first is stressed and not long, then the catch in the throat comes before as /’/ + /y/.",
+    "soundfile": "Isl_log",
+    "language": "hulq",
+    "SoundData": "y’",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "liquidglide",
+    "Place (from SoundData)": "palatal",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "Epiglottis (from SoundData)": "glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "k",
+    "word": "kupou",
+    "boldIndex": "0,1",
+    "translation": "coat",
+    "articulationDescription": "/k/ occurs in borrowed words such as kupou ”coat” (from French) and is pronounced as in the English word “key”.",
+    "soundfile": "Isl_coat",
+    "language": "hulq",
+    "SoundData": "k",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "stop",
+    "Place (from SoundData)": "velar",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "kw",
+    "word": "kwasun",
+    "boldIndex": "0,2",
+    "translation": "star",
+    "articulationDescription": "/kw/ is pronounced the same as /qu/ in the English word “queen”.",
+    "soundfile": "Isl_star",
+    "language": "hulq",
+    "SoundData": "kw",
+    "Labial (from SoundData)": "rounded",
+    "Manner (from SoundData)": "stop",
+    "Place (from SoundData)": "velar",
+    "Velum (from SoundData)": "labialized",
+    "Oral (from SoundData)": "oral",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "kw’",
+    "word": "kw’aant’",
+    "boldIndex": "0,3",
+    "translation": "dolphin; porpoise",
+    "articulationDescription": "/kw’/ is pronounced like the hulq /kw/, but it is glottalized, so it pops.",
+    "soundfile": "Isl_dolphin",
+    "language": "hulq",
+    "SoundData": "kw’",
+    "Labial (from SoundData)": "rounded",
+    "Manner (from SoundData)": "stop",
+    "Place (from SoundData)": "velar",
+    "Velum (from SoundData)": "labialized",
+    "Oral (from SoundData)": "oral",
+    "Epiglottis (from SoundData)": "glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "hw",
+    "word": "hwulmuhw",
+    "boldIndex": "0,2",
+    "translation": "First Nations",
+    "articulationDescription": "The back of the tongue is in the position for /k/, but it is glottalized, so it pops.",
+    "soundfile": "Isl_firstNations",
+    "language": "hulq",
+    "SoundData": "hw",
+    "Labial (from SoundData)": "rounded",
+    "Manner (from SoundData)": "fricative",
+    "Place (from SoundData)": "velar",
+    "Velum (from SoundData)": "labialized",
+    "Oral (from SoundData)": "oral",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "w",
+    "word": "wech",
+    "boldIndex": "0,1",
+    "translation": "watch",
+    "articulationDescription": "/w/ is pronounced as in the English word “watch”.",
+    "soundfile": "Isl_watch",
+    "language": "hulq",
+    "SoundData": "w",
+    "Labial (from SoundData)": "rounded",
+    "Manner (from SoundData)": "liquidglide",
+    "Place (from SoundData)": "velar",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "w’",
+    "word": "lhew’",
+    "boldIndex": "4,6",
+    "translation": "to flee",
+    "articulationDescription": "/w’/ is pronounced like the hulq /w/ but glottalized, meaning that it is followed by with a catch in throat after the /w/ as /w/ + ’. If /w’/ is between two vowels where the first is stressed and not long,  then the catch in the throat comes before as /’/ + /w/.",
+    "soundfile": "Isl_toFlee",
+    "language": "hulq",
+    "SoundData": "w’",
+    "Labial (from SoundData)": "rounded",
+    "Manner (from SoundData)": "liquidglide",
+    "Place (from SoundData)": "velar",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "Epiglottis (from SoundData)": "glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "q",
+    "word": "qeq",
+    "boldIndex": "0,1",
+    "translation": "baby",
+    "articulationDescription": "/q/ is pronounced a bit like the English /k/ sound, but the tongue is pulled much farther back in the throat. The back of the tongue touches the soft palate near the uvula.",
+    "soundfile": "Isl_baby",
+    "language": "hulq",
+    "SoundData": "q",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "stop",
+    "Place (from SoundData)": "uvular",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "q’",
+    "word": "q’e’mi’",
+    "boldIndex": "0,2",
+    "translation": "girl (teenage)",
+    "articulationDescription": "/q’/ is pronounced like the hulq /q/, but it is glottalized, so it pops.",
+    "soundfile": "Isl_teenGirl",
+    "language": "hulq",
+    "SoundData": "q’",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "stop",
+    "Place (from SoundData)": "uvular",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "Epiglottis (from SoundData)": "glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "x",
+    "word": "xul’tun",
+    "boldIndex": "0,1",
+    "translation": "pen; pencil",
+    "articulationDescription": "/x/ is pronounced with the back of the tongue near the back of the roof of the mouth. The tongue does not actually touch the roof of the mouth, so a rough sound is produced.",
+    "soundfile": "Isl_penPencil",
+    "language": "hulq",
+    "SoundData": "",
+    "Labial (from SoundData)": "",
+    "Manner (from SoundData)": "",
+    "Place (from SoundData)": "",
+    "Velum (from SoundData)": "",
+    "Oral (from SoundData)": "",
+    "Epiglottis (from SoundData)": "",
+    "Notes": ""
+  },
+  {
+    "id": "qw",
+    "word": "qwal",
+    "boldIndex": "0,2",
+    "translation": "qwal",
+    "articulationDescription": "/qw/ is pronounced like the hulq /q/, with the lips rounded as when making the /w/ sound.",
+    "soundfile": "Isl_speak",
+    "language": "hulq",
+    "SoundData": "qw",
+    "Labial (from SoundData)": "rounded",
+    "Manner (from SoundData)": "stop",
+    "Place (from SoundData)": "uvular",
+    "Velum (from SoundData)": "labialized",
+    "Oral (from SoundData)": "oral",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "qw’",
+    "word": "qw’uyulush",
+    "boldIndex": "0,3",
+    "translation": "to dance",
+    "articulationDescription": "/qw’/ is pronounced like the hulq /qw/, but it is glottalized, so it pops.",
+    "soundfile": "Isl_dance",
+    "language": "hulq",
+    "SoundData": "qw’",
+    "Labial (from SoundData)": "rounded",
+    "Manner (from SoundData)": "stop",
+    "Place (from SoundData)": "uvular",
+    "Velum (from SoundData)": "labialized",
+    "Oral (from SoundData)": "oral",
+    "Epiglottis (from SoundData)": "glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "xw",
+    "word": "xwi’lum’",
+    "boldIndex": "0,2",
+    "translation": "rope",
+    "articulationDescription": "/xw/ is pronounced like the hulq /x/, but with the lips rounded as when making the /w/ sound.",
+    "soundfile": "Isl_rope",
+    "language": "hulq",
+    "SoundData": "xw",
+    "Labial (from SoundData)": "rounded",
+    "Manner (from SoundData)": "fricative",
+    "Place (from SoundData)": "uvular",
+    "Velum (from SoundData)": "labialized",
+    "Oral (from SoundData)": "oral",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "ch’",
+    "word": "ch’ekwxul’s",
+    "boldIndex": "0,3",
+    "translation": "frying",
+    "articulationDescription": "/ch’/ is pronounced like /ch/, but it is glottalized, so it is made with a popping sound. This sound is quite rare in hulq.",
+    "soundfile": "Isl_frying",
+    "language": "hulq",
+    "SoundData": "",
+    "Labial (from SoundData)": "",
+    "Manner (from SoundData)": "",
+    "Place (from SoundData)": "",
+    "Velum (from SoundData)": "",
+    "Oral (from SoundData)": "",
+    "Epiglottis (from SoundData)": "",
+    "Notes": ""
+  },
+  {
+    "id": "’",
+    "word": "’unuhw",
+    "boldIndex": "0,1",
+    "translation": "glottal stop",
+    "articulationDescription": "/’/ unuhw is a catch in the throat, a sudden beginning or end.",
+    "soundfile": "Isl_unuhw",
+    "language": "hulq",
+    "SoundData": "’",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "stop",
+    "Place (from SoundData)": "glottal",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "h",
+    "word": "hilum",
+    "boldIndex": "0,1",
+    "translation": "to fall (from a height)",
+    "articulationDescription": "/h/ is pronounced as in the English word “hat”.",
+    "soundfile": "Isl_toFall",
+    "language": "hulq",
+    "SoundData": "h",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "fricative",
+    "Place (from SoundData)": "glottal",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  }
+];
+const hunqExamples=[
+  {
+    "id": "p",
+    "word": "pipa:m̓",
+    "boldIndex": "0,1",
+    "translation": "‘frog’",
+    "articulationDescription": "/p/ is pronounced like the /p/ in the English word “put”.",
+    "soundfile": "DRH_Katzie_frog",
+    "language": "hunq",
+    "SoundData": "p",
+    "Labial (from SoundData)": "closed",
+    "Manner (from SoundData)": "stop",
+    "Place (from SoundData)": "bilabial",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "p̓",
+    "word": "p̓əq̓",
+    "boldIndex": "0,2",
+    "translation": "‘white’",
+    "articulationDescription": "/p̓/ is pronounced like /p/, but it is glottalized, so it pops.",
+    "soundfile": "DRH_Katzie_white",
+    "language": "hunq",
+    "SoundData": "p’",
+    "Labial (from SoundData)": "closed",
+    "Manner (from SoundData)": "stop",
+    "Place (from SoundData)": "bilabial",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "t",
+    "word": "ten",
+    "boldIndex": "0,1",
+    "translation": "‘mother’",
+    "articulationDescription": "/t/ is pronounced as in the English word “take”.",
+    "soundfile": "DRH_EGrant_mother",
+    "language": "hunq",
+    "SoundData": "t",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "stop",
+    "Place (from SoundData)": "alveolar",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "t̓",
+    "word": "t̕iləm",
+    "boldIndex": "0,2",
+    "translation": "‘sing’",
+    "articulationDescription": "/t̓/is pronounced like /t/, but it is glottalized, so it pops.",
+    "soundfile": "DRH_DPoint_sing",
+    "language": "hunq",
+    "SoundData": "t’",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "stop",
+    "Place (from SoundData)": "alveolar",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "k",
+    "word": "kəpu",
+    "boldIndex": "0,1",
+    "translation": "‘coat’",
+    "articulationDescription": "/k/ occurs in borrowed words such as kəpu “coat” (from French), and is pronounced as in the English word “key”.",
+    "soundfile": "DRH_EGrant_coat",
+    "language": "hunq",
+    "SoundData": "k",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "stop",
+    "Place (from SoundData)": "velar",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "kʷ",
+    "word": "kʷəxʷəθ",
+    "boldIndex": "0,2",
+    "translation": "‘coho’",
+    "articulationDescription": "/kʷ/ is pronounced the same as /qu/ in the English word “queen”.",
+    "soundfile": "DRH_EdnaGrant_Coho",
+    "language": "hunq",
+    "SoundData": "kw",
+    "Labial (from SoundData)": "rounded",
+    "Manner (from SoundData)": "stop",
+    "Place (from SoundData)": "velar",
+    "Velum (from SoundData)": "labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "k̓ʷ",
+    "word": "k̓ʷəl̕ə",
+    "boldIndex": "0,3",
+    "translation": "‘belly’",
+    "articulationDescription": "/k̓ʷ/ is pronounced like the hən̓q̓əmin̓əm̓ /kʷ/, but it is glottalized, so it pops.",
+    "soundfile": "DRH_EdnaGrant_belly",
+    "language": "hunq",
+    "SoundData": "kw’",
+    "Labial (from SoundData)": "rounded",
+    "Manner (from SoundData)": "stop",
+    "Place (from SoundData)": "velar",
+    "Velum (from SoundData)": "labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "q",
+    "word": "qəl",
+    "boldIndex": "0,1",
+    "translation": "‘bad’",
+    "articulationDescription": "/q/ is pronounced a bit like the English /k/ sound, but the tongue is pulled much farther back in the throat. The back of the tongue touches the soft palate near the uvula.",
+    "soundfile": "DRH_EdnaGrant_bad",
+    "language": "hunq",
+    "SoundData": "q",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "stop",
+    "Place (from SoundData)": "uvular",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "q̓",
+    "word": "q̓aq̓iʔ",
+    "boldIndex": "0,2",
+    "translation": "‘to be sick’",
+    "articulationDescription": "/q̓/ is pronounced like the hən̓q̓əmin̓əm̓ /q/, but it is glottalized, so it pops.",
+    "soundfile": "DRH_EdnaGrant_tobesick",
+    "language": "hunq",
+    "SoundData": "q’",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "stop",
+    "Place (from SoundData)": "uvular",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "qʷ",
+    "word": "qʷel",
+    "boldIndex": "0,2",
+    "translation": "‘speak’",
+    "articulationDescription": "/qʷ/ is pronounced like the hən̓q̓əmin̓əm̓ /q/, with the lips rounded as when making the /w/ sound.",
+    "soundfile": "DRH_EdnaGrant_speak",
+    "language": "hunq",
+    "SoundData": "qw",
+    "Labial (from SoundData)": "rounded",
+    "Manner (from SoundData)": "stop",
+    "Place (from SoundData)": "uvular",
+    "Velum (from SoundData)": "labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "q̓ʷ",
+    "word": "q̓ʷi:n̓",
+    "boldIndex": "0,3",
+    "translation": "‘ear’",
+    "articulationDescription": "/q̓ʷ/ is pronounced like the hən̓q̓əmin̓əm̓ /qʷ/, but it is glottalized, so it pops.",
+    "soundfile": "DRHEdnaGrant_ear",
+    "language": "hunq",
+    "SoundData": "qw’",
+    "Labial (from SoundData)": "rounded",
+    "Manner (from SoundData)": "stop",
+    "Place (from SoundData)": "uvular",
+    "Velum (from SoundData)": "labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "ʔ",
+    "word": "laʔθən",
+    "boldIndex": "2,3",
+    "translation": "‘plate’",
+    "articulationDescription": "/ʔ/ (read “glottal stop” or ʔənəxʷ) is pronounced as a catch in the throat, or a sudden beginning or end to a word.",
+    "soundfile": "DRH_EdnaGrant_plate",
+    "language": "hunq",
+    "SoundData": "’",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "stop",
+    "Place (from SoundData)": "glottal",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "t̓ᶿ",
+    "word": "t̓ᶿaʔkʷs",
+    "boldIndex": "0,3",
+    "translation": "‘seven’",
+    "articulationDescription": "/t̓ᶿ/ is pronounced as a single sound which is much like the English /t/ plus /th/ in the phrase “cut thin”, but glottalized, meaning that it pops.",
+    "soundfile": "DRH_EdnaGrant_seven",
+    "language": "hunq",
+    "SoundData": "tth’",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "affricate",
+    "Place (from SoundData)": "dental",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "c",
+    "word": "ckʷim",
+    "boldIndex": "0,1",
+    "translation": "‘red’",
+    "articulationDescription": "/c/ is pronounced much like ts in the English word “bats”, but as a single sound.",
+    "soundfile": "DRH_EdnaGrant_red",
+    "language": "hunq",
+    "SoundData": "ts",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "affricate",
+    "Place (from SoundData)": "alveolar",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "c̓",
+    "word": "c̓ew̓iʔ",
+    "boldIndex": "0,2",
+    "translation": "‘shell, china’",
+    "articulationDescription": "/c̓/ is pronounced like the hən̓q̓əmin̓əm̓ /c/, but it is glottalized, so it pops.",
+    "soundfile": "DRH_EdnaGrant_shellChina",
+    "language": "hunq",
+    "SoundData": "ts’",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "affricate",
+    "Place (from SoundData)": "alveolar",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "č",
+    "word": "hay čxʷ q̓ə",
+    "boldIndex": "4, 6",
+    "translation": "‘thank you’",
+    "articulationDescription": "/č/ is pronounced as in /ch/ in the English word “cheap”.",
+    "soundfile": "DRH_EdnaGrant_thankyou",
+    "language": "hunq",
+    "SoundData": "ch",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "affricate",
+    "Place (from SoundData)": "palatal",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "ƛ̓",
+    "word": "ƛ̓ełəm",
+    "boldIndex": "0,2",
+    "translation": "‘salt’",
+    "articulationDescription": "/ƛ̓/ (read as barred lambda) is made by holding the tongue as for an /l/ sound and making a sort of clicking sound by releasing (lowering to allow noisy air to pass through) the side or sides of the tongue. Note that it is glottalized, so the clicking aspect of the sound is partly due to the poppy quality from a build up of air pressure in the mouth.",
+    "soundfile": "DRH_EdnaGrant_salt",
+    "language": "hunq",
+    "SoundData": "tl’",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "affricate",
+    "Place (from SoundData)": "lateral",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "θ",
+    "word": "θaθən",
+    "boldIndex": "0,1",
+    "translation": "‘mouth’",
+    "articulationDescription": "/θ/ (read as theta) is pronounced as in the English word “thin” (but never as in “then”).",
+    "soundfile": "DRH_EdnaGrant_mouth",
+    "language": "hunq",
+    "SoundData": "th",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "fricative",
+    "Place (from SoundData)": "dental",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "s",
+    "word": "sitən",
+    "boldIndex": "0,1",
+    "translation": "‘basket’",
+    "articulationDescription": "/s/ is pronounced like the /s/ in the English word “sit” (never like the /z/ sound in “hose”).",
+    "soundfile": "DRH_EdnaGrant_basket",
+    "language": "hunq",
+    "SoundData": "s",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "fricative",
+    "Place (from SoundData)": "alveolar",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "š",
+    "word": "šxʷimelə",
+    "boldIndex": "0,2",
+    "translation": "‘store’",
+    "articulationDescription": "/š/ is pronounced as in /sh/ in the English word “shore”.",
+    "soundfile": "DRH_EdnaGrant_store",
+    "language": "hunq",
+    "SoundData": "sh",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "fricative",
+    "Place (from SoundData)": "palatal",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "ł",
+    "word": "łixʷ",
+    "boldIndex": "0,1",
+    "translation": "‘three’",
+    "articulationDescription": "/ł/ (read as barred l) is made by holding the tongue as in /l/ but producing a sound more like /š/ (or English /sh/). This is done by holding one or both sides of the tongue a little ways away from the back teeth so some air can pass by, making a hissing sound. /ł/ is also sometimes written as /ɬ/ (looped /l/).",
+    "soundfile": "DRH_EdnaGrant_three",
+    "language": "hunq",
+    "SoundData": "lh",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "fricative",
+    "Place (from SoundData)": "lateral",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "x",
+    "word": "ʔiməx",
+    "boldIndex": "4,5",
+    "translation": "‘walk’",
+    "articulationDescription": "/x/ is pronounced like how some speakers of English pronounce /hu/ is words like “human” or “hue”, where the body of the tongue is positioned much like /y/ as in “yellow”, raised but not quite touching the roof of the mouth, allowing some noisy air to pass through, making a hissing sound. It is also quite similar to how /sh/ is pronounced in the word “shoe”, and you will hear speakers of hul’q’umi’num’ dialect use /š/ instead of /x/.",
+    "soundfile": "DRH_EdnaGrant_walk",
+    "language": "hunq",
+    "SoundData": "",
+    "Labial (from SoundData)": "",
+    "Manner (from SoundData)": "",
+    "Place (from SoundData)": "",
+    "Velum (from SoundData)": "",
+    "Oral (from SoundData)": "",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "",
+    "Notes": ""
+  },
+  {
+    "id": "xʷ",
+    "word": "xʷəlməxʷ",
+    "boldIndex": "0,2",
+    "translation": "‘Indian’",
+    "articulationDescription": "/xʷ/ is pronounced much like the /wh/ in the English word “which” for speakers who pronounce “which” differently from “witch”. The back of the tongue is raised, in the position for /k/, but it does not quite touch the roof of the mouth, so a hissing sound is produced. The lips are rounded as in making a /w/ sound.",
+    "soundfile": "DRH_EdnaGrant_FNperson",
+    "language": "hunq",
+    "SoundData": "xw",
+    "Labial (from SoundData)": "rounded",
+    "Manner (from SoundData)": "fricative",
+    "Place (from SoundData)": "uvular",
+    "Velum (from SoundData)": "labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "x̌",
+    "word": "x̌acaʔ",
+    "boldIndex": "0,2",
+    "translation": "‘lake’",
+    "articulationDescription": "/x̌/ is pronounced with the back of the tongue near the back of the mouth. The tongue does not actually touch the roof of the mouth, so a hissing sound is produced.",
+    "soundfile": "DRH_Katzie_lake",
+    "language": "hunq",
+    "SoundData": "x",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "fricative",
+    "Place (from SoundData)": "uvular",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "x̌ʷ",
+    "word": "x̌ʷil̕əm",
+    "boldIndex": "0,3",
+    "translation": "‘rope’",
+    "articulationDescription": "/x̌ʷ/ is pronounced like the hən̓q̓əmin̓əm̓ /x̌/, but with the lips rounded as when making the /w/ sound.",
+    "soundfile": "DRH_EdnaGrant_rope",
+    "language": "hunq",
+    "SoundData": "xw",
+    "Labial (from SoundData)": "rounded",
+    "Manner (from SoundData)": "fricative",
+    "Place (from SoundData)": "uvular",
+    "Velum (from SoundData)": "labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "h",
+    "word": "hewt",
+    "boldIndex": "0,1",
+    "translation": "‘rat’",
+    "articulationDescription": "/h/ is pronounced as in the English word “heat”.",
+    "soundfile": "DRH_EdnaGrant_rat",
+    "language": "hunq",
+    "SoundData": "h",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "fricative",
+    "Place (from SoundData)": "glottal",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "m",
+    "word": "men",
+    "boldIndex": "0,1",
+    "translation": "‘father’",
+    "articulationDescription": "/m/ is pronounced as in the English word “meet”.",
+    "soundfile": "DRH_EGrant_father",
+    "language": "hunq",
+    "SoundData": "m",
+    "Labial (from SoundData)": "closed",
+    "Manner (from SoundData)": "nasal",
+    "Place (from SoundData)": "bilabial",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "nasal",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "m̓",
+    "word": "leləm̓",
+    "boldIndex": "4,6",
+    "translation": "‘house’",
+    "articulationDescription": "/m̓/ is pronounced like the hən̓q̓əmin̓əm̓ /m/ but glottalized, meaning that it is followed by with a catch in throat after the /m/, as /m/ + /ʔ/. If /m̓/ is between two vowels where the first is stressed and not long, then the catch in the throat comes before, as /ʔ/ + /m/.",
+    "soundfile": "DRH_EGrant_house",
+    "language": "hunq",
+    "SoundData": "m’",
+    "Labial (from SoundData)": "closed",
+    "Manner (from SoundData)": "nasal",
+    "Place (from SoundData)": "bilabial",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "nasal",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "n",
+    "word": "nəc̓aʔ",
+    "boldIndex": "0,1",
+    "translation": "‘one’",
+    "articulationDescription": "/n/ is pronounced as in the English word “neat”.",
+    "soundfile": "DRH_EdnaGrant_one",
+    "language": "hunq",
+    "SoundData": "n",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "nasal",
+    "Place (from SoundData)": "alveolar",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "nasal",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "n̓",
+    "word": "ho:n̓",
+    "boldIndex": "3,5",
+    "translation": "‘humpback’",
+    "articulationDescription": "/n̓/ is pronounced like the hən̓q̓əmin̓əm̓ /n/ but glottalized, meaning that it is followed by with a catch in throat after the n, as /n/ + /ʔ/. If n̓ is between two vowels where the first is stressed and not long, then the catch in the throat comes before, as /ʔ/ + /n/.",
+    "soundfile": "DRH_EdnaGrant_humpbacksalmon",
+    "language": "hunq",
+    "SoundData": "n’",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "nasal",
+    "Place (from SoundData)": "alveolar",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "nasal",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "l",
+    "word": "ləpat",
+    "boldIndex": "0,1",
+    "translation": "‘cup’",
+    "articulationDescription": "/l/ is pronounced like the /l/ in the English word “long”.",
+    "soundfile": "DRH_EdnaGrant_cup",
+    "language": "hunq",
+    "SoundData": "l",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "liquidglide",
+    "Place (from SoundData)": "lateral",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "l̓",
+    "word": "spa:l̕",
+    "boldIndex": "4,6",
+    "translation": "‘raven’",
+    "articulationDescription": "/l̓/ is pronounced like the hən̓q̓əmin̓əm̓ /l/ but glottalized, meaning that it is followed by with a catch in throat after the /l/, as /l/ + /ʔ/. If /l̓/ is between two vowels where the first is stressed and not long, then the catch in the throat comes before, as /ʔ/ + /l/.",
+    "soundfile": "DRH_EdnaGrant_raven",
+    "language": "hunq",
+    "SoundData": "l’",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "liquidglide",
+    "Place (from SoundData)": "lateral",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "y",
+    "word": "yənəs",
+    "boldIndex": "0,1",
+    "translation": "‘tooth’",
+    "articulationDescription": "/y/ is pronounced as in the English word “yellow” (never as in “why”).",
+    "soundfile": "DRH_EdnaGrant_tooth",
+    "language": "hunq",
+    "SoundData": "y",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "liquidglide",
+    "Place (from SoundData)": "palatal",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "y̓",
+    "word": "ʔəy̓",
+    "boldIndex": "2,4",
+    "translation": "‘good’",
+    "articulationDescription": "/y̓/ is pronounced like the hən̓q̓əmin̓əm̓ /y/ but glottalized, meaning that it is followed by with a catch in throat after the /y/, as /y/ + /ʔ/. If /y̓/ is between two vowels where the first is stressed and not long, then the catch in the throat comes before, as /ʔ/ + /y/.",
+    "soundfile": "DRH_EdnaGrant_good",
+    "language": "hunq",
+    "SoundData": "y’",
+    "Labial (from SoundData)": "spread",
+    "Manner (from SoundData)": "liquidglide",
+    "Place (from SoundData)": "palatal",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "w",
+    "word": "weč",
+    "boldIndex": "0,1",
+    "translation": "‘clock’",
+    "articulationDescription": "/w/ is pronounced as in the English word “will”.",
+    "soundfile": "DRH_EdnaGrant_clock",
+    "language": "hunq",
+    "SoundData": "w",
+    "Labial (from SoundData)": "rounded",
+    "Manner (from SoundData)": "liquidglide",
+    "Place (from SoundData)": "velar",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "not-glottalized",
+    "Notes": ""
+  },
+  {
+    "id": "w̓",
+    "word": "swiw̓ləs",
+    "boldIndex": "3,5",
+    "translation": "‘boy’",
+    "articulationDescription": "/w̓/ is pronounced like the hən̓q̓əmin̓əm̓ w but glottalized, meaning that it is followed by with a catch in throat after the /w/, as /w/ + /ʔ/. If /w̓/ is between two vowels where the first is stressed and not long, then the catch in the throat comes before, as /ʔ/ + /w/.",
+    "soundfile": "DRH_EdnaGrant_boy",
+    "language": "hunq",
+    "SoundData": "w’",
+    "Labial (from SoundData)": "rounded",
+    "Manner (from SoundData)": "liquidglide",
+    "Place (from SoundData)": "velar",
+    "Velum (from SoundData)": "not-labialized",
+    "Oral (from SoundData)": "oral",
+    "VocalFolds (from SoundData)": "",
+    "Epiglottis (from SoundData)": "glottalized",
+    "Notes": ""
+  }
+];
+const featureDescriptionsJSON=[
+  {
+    "id": "liquid_glide",
+    "featureName": "Liquid/ Glide",
+    "description": "a liquid/glide is..."
+  },
+  {
+    "id": "affricate",
+    "featureName": "Affricate",
+    "description": "an affricate is..."
+  }
+];
+
+const articulationImages=[
+  {
+    "id": "velum-nasal",
+    "imageFilename": "velum-nasal",
+    "GridPosition": "3"
+  },
+  {
+    "id": "velum-oral",
+    "imageFilename": "velum-oral",
+    "GridPosition": "3"
+  },
+  {
+    "id": "vocalFolds-closed",
+    "imageFilename": "voice-closed",
+    "GridPosition": "4"
+  },
+  {
+    "id": "vocalFolds-open",
+    "imageFilename": "voice-open",
+    "GridPosition": "4"
+  },
+  {
+    "id": "vocalFolds-vibrating",
+    "imageFilename": "voice-vibrating",
+    "GridPosition": "4"
+  },
+  {
+    "id": "vocalFolds-closed-vibrating",
+    "imageFilename": "voice-closed-vibrating",
+    "GridPosition": "4"
+  },
+  {
+    "id": "lips-bilabial-fricative",
+    "imageFilename": "lips-bilabial-fricative",
+    "GridPosition": "1"
+  },
+  {
+    "id": "lips-bilabial",
+    "imageFilename": "lips-bilabial",
+    "GridPosition": "1"
+  },
+  {
+    "id": "11",
+    "imageFilename": "lips-ld-dfric",
+    "GridPosition": "1"
+  },
+  {
+    "id": "13",
+    "imageFilename": "lips-rounded-dfric",
+    "GridPosition": "1"
+  },
+  {
+    "id": "lips-labialized",
+    "imageFilename": "lips-labialized",
+    "GridPosition": "1"
+  },
+  {
+    "id": "lips-labialized-dental-fricative",
+    "imageFilename": "lips-spread-dfric",
+    "GridPosition": "1"
+  },
+    {
+    "id": "lips-not-labialized-dental-fricative",
+    "imageFilename": "lips-not-labialized-dental-fricative",
+    "GridPosition": "1"
+  },
+  {
+    "id": "lips-not-labialized",
+    "imageFilename": "lips-not-labialized",
+    "GridPosition": "1"
+  },
+  {
+    "id": "tongue-bilabial-stop",
+    "imageFilename": "tongue-neutral",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-alveolar-stop",
+    "imageFilename": "tongue-alveolar-stop",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-dental-stop",
+    "imageFilename": "tongue-dental-stop",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-lateral-stop",
+    "imageFilename": "tongue-alveolar-stop",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-palatal-stop",
+    "imageFilename": "tongue-palatal-stop",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-velar-stop",
+    "imageFilename": "tongue-velar-stop",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-uvular-stop",
+    "imageFilename": "tongue-uvular-stop",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-bilabial-fricative",
+    "imageFilename": "tongue-neutral",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-dental-fricative",
+    "imageFilename": "tongue-dental-fricative",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-alveolar-fricative",
+    "imageFilename": "tongue-alveolar-fricative",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-lateral-fricative",
+    "imageFilename": "tongue-alveolar-stop",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-palatal-fricative",
+    "imageFilename": "tongue-palatal-fricative",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-velar-fricative",
+    "imageFilename": "tongue-velar-fricative",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-uvular-fricative",
+    "imageFilename": "tongue-uvular-fricative",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-glottal-fricative",
+    "imageFilename": "tongue-neutral",
+    "GridPosition": ""
+  },
+  {
+    "id": "tongue-bilabial-liquidglide",
+    "imageFilename": "tongue-dental-stop",
+    "GridPosition": "2"
+  },
+  {
+    "id": "palate-nasal",
+    "imageFilename": "palate-nasal",
+    "GridPosition": "0"
+  },
+  {
+    "id": "palate-oral",
+    "imageFilename": "palate-oral",
+    "GridPosition": "0"
+  },
+  {
+    "id": "tongue-dental-liquidglide",
+    "imageFilename": "tongue-dental-fricative",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-alveolar-liquidglide",
+    "imageFilename": "tongue-alveolar-fricative",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-lateral-liquidglide",
+    "imageFilename": "tongue-alveolar-stop",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-palatal-liquidglide",
+    "imageFilename": "tongue-palatal-fricative",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-velar-liquidglide",
+    "imageFilename": "tongue-velar-fricative",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-uvular-liquidglide",
+    "imageFilename": "tongue-uvular-fricative",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-bilabial-nasal",
+    "imageFilename": "tongue-neutral",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-dental-nasal",
+    "imageFilename": "tongue-dental-stop",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-alveolar-nasal",
+    "imageFilename": "tongue-alveolar-stop",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-lateral-nasal",
+    "imageFilename": "tongue-alveolar-stop",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-palatal-nasal",
+    "imageFilename": "tongue-palatal-stop",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-velar-nasal",
+    "imageFilename": "tongue-velar-stop",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-uvular-nasal",
+    "imageFilename": "tongue-uvular-stop",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-glottal-nasal",
+    "imageFilename": "tongue-neutral",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-bilabial-affricate",
+    "imageFilename": "tongue-neutral",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-bilabial-affricate",
+    "imageFilename": "tongue-neutral",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-dental-affricate",
+    "imageFilename": "tongue-dental-affricate",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-alveolar-affricate",
+    "imageFilename": "tongue-alveolar-affricate",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-lateral-affricate",
+    "imageFilename": "tongue-alveolar-stop",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-palatal-affricate",
+    "imageFilename": "tongue-palatal-affricate",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-velar-affricate",
+    "imageFilename": "tongue-velar-stop",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-uvular-affricate",
+    "imageFilename": "tongue-uvular-stop",
+    "GridPosition": "2"
+  },
+  {
+    "id": "tongue-glottal-affricate",
+    "imageFilename": "tongue-neutral",
+    "GridPosition": "2"
+  },
+  {
+    "id": "lips-dental-affricate",
+    "imageFilename": "lips-dental-affricate",
+    "GridPosition": "1"
+  }
+];
+
+
+//list of language names whose sounds can be searched for in this page
+var languages = ['hən̓q̓əmin̓əm̓','hul’q’umi’num’'];
+
+//list of soundExample array objects. The soundExample objects must be the same index as their corresponding index in language[]
+  //ie, languages = ['languageA', 'languageB']; languageExamples['languageAExamples', 'languageBExamples'];
+var languageExamples=[hunqExamples, hulqExamples];
+
+//sets the current language on page load. in this case, 1
+var curLanguageIndex = 1;
+
+//sets the current language on page load. in this case, languageExamples[curLanguageIndex] > 'hul’q’umi’num’'
+var curLanguage = languages[curLanguageIndex];
+//sets the current languageExample array object on page load. in this case, languageExamples[1] //hulqExamples
+let currentSoundExamples = languageExamples[curLanguageIndex];
+
+/*switchLanguage(languageIndex)
+  Takes an int from html onclick="switchLanguage(int)" that corresponds to the language name in languages[]
+  Sets the currentLanguageIndex value, and the corresponding values at that index in curLanguage and currentSoundExamples
+  Calls transcribe() from sound_descriptions.js to convert current sound data shown on the main page in <p id="IPA"...> and <span id="hint">
+*/
+function switchLanguage(languageIndex) {
+  curLanguageIndex = languageIndex;
+  curLanguage = languages[curLanguageIndex];
+  console.log(curLanguage);
+  currentSoundExamples = languageExamples[curLanguageIndex];
+  //this isn't currently working because there's a listener in sagittal.js that clears the data spans if any radio buttons or checkboxes are clicked.
+  
+  console.log(soundSearched);
+  if(soundSearched){
+    transcribe()
+  };
+}

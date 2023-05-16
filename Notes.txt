@@ -1,0 +1,17 @@
+Notes
+- how do I run a whole bunch of functions on-load?
+
+
+Rewrite:
+- would it be better to have the language selection a dropdown than radio buttons? I think it's better as buttons if there are only 2, but 3+ probably dropdown...
+-do we want just the ipa box to clear or also the sound description line? if also the sound description line, should we say something else? like "choose the features and click 'search'"
+
+From Sonya:
+> This should all be written in the description popup window crafted by students.
+	First, I’m wondering if for “closed”, we should change the title to “closed (ejectives and glottalized resonants)” and for “vibrating” we should change the title to “vibrating (resonants and glottalized resonants)” for extra help figuring out what these are
+	Now that I’m looking at the gifs for “vibrating”, I’m realizing that vibrating is actually just open-close, so it would make more sense for the gif to be alternating between open and closed.
+	If we do this, then vibrating would be open-close equally in repeating cyles, and glottalized resonants would be a long close followed by open-close equally. Does that make sense?
+
+dental fricative is good now. re-export with lines aligned to artboard for tongue and lips. Redo affricate for dental
+
+change names of all lateral tongue images to tongue-alveolar-stop
